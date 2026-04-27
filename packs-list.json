@@ -14,7 +14,7 @@
     "nameEn": "HSK4",
     "nameZh": "HSK4",
     "lessons": {
-      "lesson1": { "name": "HSK 4", "file": "packs/hsk4/HSK4.json" }
+      "lesson1": { "name": "HSK 4", "file": "packs/HSK4/HSK4.json" }
     }
   },
   "hsk3": {
@@ -22,7 +22,7 @@
     "nameEn": "HSK3",
     "nameZh": "HSK3",
     "lessons": {
-      "lesson1": { "name": "HSK 3", "file": "packs/hsk3/HSK3.json" }
+      "lesson1": { "name": "HSK 3", "file": "packs/HSK3/HSK3.json" }
     }
   }
 }
