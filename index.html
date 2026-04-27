@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>华夏知韵 · 自测学习库 | 持久化存储 + 题目编辑</title>
+    <title>自测学习库</title>
     <style>
         * {
             box-sizing: border-box;
@@ -29,7 +29,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin: 0;
+            margin: 0 0 8px 0;
         }
         .sub {
             color: #6c5a46;
@@ -235,563 +235,238 @@
     </style>
 </head>
 <body>
+<script>
+    // التحقق من وجود مستخدم مسجل أو ضيف
+    const currentUser = localStorage.getItem('ch_current_user');
+    if (!currentUser) {
+        window.location.href = 'login.html';
+    }
+</script>
 <div class="app-container">
-    <div class="header">
-        <h1>📖 华夏知韵 · 自测学习库</h1>
-        <div class="sub">所有数据自动保存 · 可编辑题目 · 永不丢失</div>
+    <div class="header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <h1 data-i18n="appTitle">📖 自测学习库</h1>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <button id="langToggleBtn" class="tab-btn" style="background: #e0cbb0;">🌐 中文 / English</button>
+            <div id="userArea" style="display: flex; gap: 8px; align-items: center;">
+                <span id="userDisplay" style="background: #ede3d4; padding: 6px 14px; border-radius: 40px; font-size: 0.85rem;"></span>
+                <button id="upgradeAccountBtn" class="small secondary" style="display: none; background: #c67b3c;">🔐 Sign up / Login</button>
+                <button id="logoutBtn" class="small secondary" style="display: none;">🚪 Logout</button>
+            </div>
+        </div>
     </div>
     <div class="tabs">
-        <button class="tab-btn active" data-tab="learn">📝 开始学习</button>
-        <button class="tab-btn" data-tab="wrong">📘 没答对的地方</button>
-        <button class="tab-btn" data-tab="correct">✅ 答对的地方</button>
-        <button class="tab-btn" data-tab="manage">✏️ 管理题库</button>
-        <button class="tab-btn" data-tab="add">➕ 添加新题</button>
+        <button class="tab-btn active" data-tab="learn" data-i18n="tabLearn">📝 开始学习</button>
+        <button class="tab-btn" data-tab="wrong" data-i18n="tabWrong">📘 没答对的地方</button>
+        <button class="tab-btn" data-tab="correct" data-i18n="tabCorrect">✅ 答对的地方</button>
+        <button class="tab-btn" data-tab="manage" data-i18n="tabManage">✏️ 管理题库</button>
+        <button class="tab-btn" data-tab="add" data-i18n="tabAdd">➕ 添加新题</button>
     </div>
 
     <!-- 学习面板 -->
     <div id="learnPanel" class="panel active-panel">
         <div class="stats">
-            <span>📚 总题库: <strong id="totalCount">0</strong></span>
-            <span>✅ 已答对: <strong id="correctCount">0</strong></span>
-            <span>❌ 待巩固: <strong id="wrongCount">0</strong></span>
-            <button id="resetStudyStats" class="small secondary">🗑️ 重置学习记录</button>
+            <span data-i18n="statsTotal">📚 总题库: <strong id="totalCount">0</strong></span>
+            <span data-i18n="statsCorrect">✅ 已答对: <strong id="correctCount">0</strong></span>
+            <span data-i18n="statsWrong">❌ 待巩固: <strong id="wrongCount">0</strong></span>
+            <button id="resetStudyStats" class="small secondary" data-i18n="resetBtn">🗑️ 重置学习记录</button>
         </div>
         <div class="quiz-card" id="quizArea">
             <div id="questionImageArea" class="question-img">🖼️ 知识配图 · 文化专题</div>
-            <div class="question-text" id="questionText">加载题目中...</div>
+            <div class="question-text" id="questionText">Wait...📚</div>
             <div class="answer-input-area">
-                <input type="text" id="answerInput" class="answer-input" placeholder="输入你的答案 (判断题填“正确/错误”, 多选用逗号隔开)" autocomplete="off">
-                <button id="submitAnswer">提交答案</button>
-                <button id="nextQuestion" class="secondary">下一题 ➡️</button>
+                <input type="text" id="answerInput" class="answer-input" data-i18n="answerPlaceholder" placeholder="输入你的答案 (多选用逗号隔开)" autocomplete="off">
+                <button id="submitAnswer" data-i18n="submitBtn">提交答案</button>
+                <button id="nextQuestion" class="secondary" data-i18n="nextBtn">下一题 ➡️</button>
             </div>
             <div id="feedbackMsg" class="feedback"></div>
         </div>
-        <div style="font-size:0.8rem; text-align:center; color:#a68e72;">💡 每轮学习每个题目只出现一次，答对后不再重复，答错也会移出本轮（可去错题本练习）。所有数据自动保存。</div>
+        
+        <!-- 筛选区域: 按 Group 和 Subgroup -->
+        <div class="stats" style="background: #e8decf; justify-content: flex-start; gap: 20px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <label data-i18n="groupFilterLabel" style="margin:0;">📁 Group:</label>
+                <select id="groupFilter" style="width: auto; min-width: 120px;">
+                    <option value="all">All Groups</option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <label data-i18n="subgroupFilterLabel" style="margin:0;">📂 Subgroup:</label>
+                <select id="subgroupFilter" style="width: auto; min-width: 120px;">
+                    <option value="all">All Subgroups</option>
+                </select>
+            </div>
+            <button id="studyNewBtn" class="small secondary" data-i18n="studyNewBtn">🔄 بدء جديد</button>
+            <button id="studyContinueBtn" class="small secondary" data-i18n="studyContinueBtn">📖 مواصلة (الأخطاء والمتبقية)</button>
+            <button id="resetGroupFilter" class="small" data-i18n="resetFilter">🗑️ إعادة تعيين الفلتر</button>
+        </div>
+        <div style="font-size:0.8rem; text-align:center; color:#a68e72;" data-i18n="studyTip">💡 每轮学习每个题目只出现一次，答对后不再重复，答错也会移出本轮（可去错题本练习）。所有数据自动保存。</div>
     </div>
 
     <!-- 错题本 -->
     <div id="wrongPanel" class="panel">
-        <h3>📕 没答对的题目 <button id="practiceWrongBtn" class="small" style="margin-left: 12px;">✍️ 练习错题本</button></h3>
+        <h3><span data-i18n="wrongTitle">📕 没答对的题目</span> <button id="practiceWrongBtn" class="small" style="margin-left: 12px;" data-i18n="practiceWrongBtn">✍️ 练习错题本</button></h3>
         <div id="wrongListContainer" class="question-list">加载中...</div>
     </div>
 
     <!-- 答对的地方 -->
     <div id="correctPanel" class="panel">
-        <h3>✅ 答对题库 <button id="clearAllCorrectBtn" class="small warning" style="margin-left: 12px;">清空答对记录</button></h3>
+        <h3><span data-i18n="correctTitle">✅ 答对题库</span> <button id="clearAllCorrectBtn" class="small warning" style="margin-left: 12px;" data-i18n="clearCorrectBtn">清空答对记录</button></h3>
         <div id="correctListContainer" class="question-list">加载中...</div>
     </div>
 
-    <!-- 管理题库（编辑/删除题目） -->
+    <!-- 管理题库 -->
     <div id="managePanel" class="panel">
-        <h3>✏️ 编辑或删除已有题目 (修改后自动保存)</h3>
+        <h3 data-i18n="manageTitle">✏️ 编辑或删除已有题目 (修改后自动保存)</h3>
+        <!-- أدوات حذف حسب Group / Subgroup -->
+        <div style="background:#ede3d4; border-radius:28px; padding:12px; margin-bottom:16px;">
+            <h4 style="margin:0 0 12px 0;">🗑️ Delete by Group / Subgroup</h4>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end;">
+                <div style="flex:1; min-width:130px;">
+                    <label>📁 Group</label>
+                    <select id="deleteGroupSelect" style="width:100%;"></select>
+                </div>
+                <div style="flex:1; min-width:130px;">
+                    <label>📂 Subgroup (optional)</label>
+                    <select id="deleteSubgroupSelect" style="width:100%;">
+                        <option value="all">All Subgroups</option>
+                    </select>
+                </div>
+                <div>
+                    <button id="deleteGroupBtn" class="small warning">🗑️ Delete Selected Group</button>
+                </div>
+                <div>
+                    <button id="deleteSubgroupBtn" class="small warning">📖 Delete Selected Lesson</button>
+                </div>
+            </div>
+            <p style="font-size:0.75rem; margin:10px 0 0 0; color:#a55c2e;">⚠️ This will permanently remove questions and their progress (correct/wrong).</p>
+        </div>
         <div class="search-box">
-            <input type="text" id="searchQuestionInput" placeholder="🔍 搜索题目关键词...">
+            <input type="text" id="searchQuestionInput" data-i18n="searchPlaceholder" placeholder="🔍 搜索题目关键词...">
         </div>
         <div id="allQuestionsList" class="question-list">加载中...</div>
     </div>
 
-    <!-- 添加新题目 -->
+    <!-- Add New Questions -->
     <div id="addPanel" class="panel">
-        <h3>➕ 添加新知识 / 新题目</h3>
-        <div class="grid-2col">
-            <div class="form-group">
-                <label>问题 / 题干</label>
-                <input type="text" id="newQuestion" placeholder="例：中国有多少个省级行政区？">
-            </div>
-            <div class="form-group">
-                <label>标准答案 (多个答案用分号;隔开)</label>
-                <input type="text" id="newAnswer" placeholder="例：34个;三十四个">
-            </div>
-            <div class="form-group">
-                <label>类别</label>
-                <input type="text" id="newCategory" placeholder="地理 / 历史 / 文化 / 生词 ...">
-            </div>
-            <div class="form-group">
-                <label>图片描述(仅示意)</label>
-                <input type="text" id="newImageDesc" placeholder="例如: 地图图标">
-            </div>
+    <h3 data-i18n="addTitle">➕ Add New Knowledge / Questions</h3>
+    <div class="grid-2col">
+        <div class="form-group">
+            <label data-i18n="questionLabel">Question / Prompt</label>
+            <input type="text" id="newQuestion" placeholder="Example: How many provincial-level divisions does China have?">
         </div>
-        <button id="addQuestionBtn">📌 添加到总题库</button>
-        <hr>
-        <h4>📂 现有类别一览</h4>
-        <div id="categoryList" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+        <div class="form-group">
+            <label data-i18n="answerLabel">Correct Answer (separate multiple answers with semicolon ;)</label>
+            <input type="text" id="newAnswer" placeholder="Example: 34; thirty-four">
+        </div>
+        <div class="form-group">
+            <label data-i18n="groupLabel">Group (e.g., HSK 1, General)</label>
+            <input type="text" id="newGroup" placeholder="HSK 1 / General / Custom">
+        </div>
+        <div class="form-group">
+            <label data-i18n="subgroupLabel">Subgroup (e.g., Lesson 1, Grammar)</label>
+            <input type="text" id="newSubgroup" placeholder="Lesson 1 / Reading / Optional">
+        </div>
+        <div class="form-group">
+            <label data-i18n="categoryLabel">Category (e.g., Geography, History)</label>
+            <input type="text" id="newCategory" placeholder="Geography / History / Culture / Vocabulary ...">
+        </div>
+        <div class="form-group">
+            <label data-i18n="imageLabel">Image description (illustrative only)</label>
+            <input type="text" id="newImageDesc" placeholder="Example: Map icon">
+        </div>
     </div>
-</div>
+    <button id="addQuestionBtn" data-i18n="addButton">📌 Add to Question Bank</button>
+
+    <hr>
+
+    <!-- Batch Import Area -->
+    <div class="form-group">
+        <label data-i18n="batchLabel">📦 Batch Import Questions</label>
+        
+        <!-- أزرار اختيار الصيغة -->
+        <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+            <button type="button" id="batchFormatJs" class="small secondary">JavaScript Objects</button>
+            <button type="button" id="batchFormatJson" class="small secondary">JSON Array</button>
+            <button type="button" id="batchFormatCsv" class="small secondary">CSV</button>
+            <button type="button" id="batchFormatText" class="small secondary">Simple Text</button>
+        </div>
+        
+        <textarea id="batchQuestions" rows="8" style="width:100%; border-radius:28px; padding:12px; background:#fffaf2; border:1px solid #dacfb8; font-family: monospace;" 
+            placeholder='{ text: "Question", answers: ["Answer1","Answer2"], category: "Category", group: "HSK 1", subgroup: "Lesson 1", imageHint: "🖼️" }'></textarea>
+        
+        <button id="batchAddBtn" class="secondary" style="background:#c67b3c;" data-i18n="batchAddBtn">➕ Batch Add</button>
+        
+        <details style="margin-top:12px;">
+            <summary data-i18n="batchExampleTitle">📖 View Examples (multi-format)</summary>
+            <div style="background:#f0e8dc; padding:12px; border-radius:20px; margin-top:8px;">
+                <p><strong>📌 JavaScript Objects (one per line)</strong></p>
+                <pre style="background:#e8d9c8; padding:8px; border-radius:12px; overflow-x:auto; font-size:12px;">
+{ text: "What is the capital of China?", answers: ["Beijing"], category: "Geography", group: "HSK 2", subgroup: "Cities", imageHint: "🏙️" }
+{ text: "Who wrote 'Dream of the Red Chamber'?", answers: ["Cao Xueqin"], category: "Literature", group: "HSK 5", subgroup: "Novels", imageHint: "📚" }
+                </pre>
+                
+                <p><strong>📌 JSON Array</strong></p>
+                <pre style="background:#e8d9c8; padding:8px; border-radius:12px; overflow-x:auto; font-size:12px;">
+[
+{"text": "What is the capital of China?", "answers": ["Beijing"], "category": "Geography", "group": "HSK 2", "subgroup": "Cities"},
+{"text": "Who wrote 'Dream of the Red Chamber'?", "answers": ["Cao Xueqin"], "category": "Literature", "group": "HSK 5", "subgroup": "Novels"}
+]
+                </pre>
+                
+                <p><strong>📌 CSV (text,answers,category,group,subgroup)</strong></p>
+                <pre style="background:#e8d9c8; padding:8px; border-radius:12px; overflow-x:auto; font-size:12px;">
+"What is the capital of China?","Beijing",Geography,HSK 2,Cities
+"Who wrote 'Journey to the West'?","Wu Cheng'en",Literature,HSK 5,Novels
+                </pre>
+                
+                <p><strong>📌 Simple Text (Question | Answer1,Answer2 | Category | Group | Subgroup)</strong></p>
+                <pre style="background:#e8d9c8; padding:8px; border-radius:12px; overflow-x:auto; font-size:12px;">
+What is the capital of China? | Beijing | Geography | HSK 2 | Cities
+Who wrote Journey to the West? | Wu Cheng'en | Literature | HSK 5 | Novels
+                </pre>
+            </div>
+            <p style="font-size:12px; margin-top:8px;" data-i18n="batchHelpNote">💡 You can copy any format above and paste it into the textarea, then click Batch Add.</p>
+        </details>
+    </div>
+
+    <hr>
+
+    <!-- 📦 Download Question Packs Area (New Hierarchical Version) -->
+    <div>
+        <button id="openPackManagerBtn" class="secondary" style="background:#6c8b5e; margin-bottom: 16px;">📦 Download Question Packs</button>
+        <p style="font-size:0.75rem; color:#6c5a46;">⬇️ Add pre-made question packs (HSK, Culture, etc.) to your library</p>
+    </div>
+
+    <!-- Modal for hierarchical packs (put it OUTSIDE #addPanel, at the end of body) -->
+    <div id="packModal" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+        <div style="background:#fffcf7; border-radius:48px; padding:24px; max-width:500px; width:90%; max-height:80%; overflow:auto;">
+            <h3 data-i18n="packModalTitle">📦 Available Question Packs</h3>
+            <div id="packTreeContainer" style="margin:16px 0;"></div>
+            <button id="closePackModalBtn" class="small secondary">Close</button>
+        </div>
+    </div>
 
 <script>
-    // ---------- 默认内置题库（初始数据）----------
-    const DEFAULT_QUESTIONS_RAW = [
-        // === 第一部分：单题 + 地理/历史/文化基础 ===
-        { text: "中国的邻国有14个（朝鲜、俄罗斯、蒙古、哈萨克斯坦、吉尔吉斯斯坦、塔吉克斯坦、阿富汗、巴基斯坦、印度、尼泊尔、不丹、缅甸、老挝、越南），其中不是中国的邻国是？", answers: ["日本","菲律宾","印度尼西亚","马来西亚"], category: "地理", imageHint: "🗺️ 邻国地图" },
-        { text: "中国第一大岛是？", answers: ["台湾","台湾岛","Taiwan"], category: "地理", imageHint: "🏝️ 岛屿示意" },
-        { text: "中国人常常把哪条河流称作“母亲河”？", answers: ["黄河","the Yellow River"], category: "地理", imageHint: "🏞️ 河流分布" },
-        { text: "中国文明以什么为核心和代表？", answers: ["儒家文化","儒家","儒教","Confucian culture"], category: "哲学", imageHint: "🧧 思想传承" },
-        { text: "中国是一个统一的多民族国家，有多少个民族？", answers: ["56个","56","五十六"], category: "社会", imageHint: "👥 民族统计" },
-        { text: "中国共有多少大方音区？", answers: ["七大方音区","7个","七","7"], category: "语言", imageHint: "🗣️ 方言地图" },
-        { text: "哪种宗教是土生土长的中国宗教？", answers: ["道教","道","Taoism"], category: "宗教", imageHint: "☯️ 本土信仰" },
-        { text: "汉字是什么文字类型？", answers: ["象形文字","象形","Pictographic script"], category: "语言", imageHint: "✍️ 文字演变" },
-        { text: "总体来说，中国地势的分布特点是什么？", answers: ["西高东低","西部高东部低"], category: "地理", imageHint: "⛰️ 地势剖面" },
-        { text: "孔子被后世尊为什么？", answers: ["万世师表","至圣先师","The Eternal Teacher for All Ages"], category: "历史", imageHint: "📜 先贤尊称" },
-        { text: "通常认为哪条线是南北方的分界线？", answers: ["秦岭—淮河","秦岭淮河","秦岭-淮河一线"], category: "地理", imageHint: "🗺️ 气候分界" },
-        { text: "世界上海拔最高的山脉是？", answers: ["喜马拉雅山脉","喜马拉雅山","Himalayas"], category: "地理", imageHint: "🏔️ 最高山脉" },
-        { text: "道家学派的创始人是谁？", answers: ["老子","李耳","Laozi"], category: "哲学", imageHint: "☯️ 道家始祖" },
-        { text: "北京的地标是什么？", answers: ["天安门广场","天安门","故宫"], category: "建筑", imageHint: "🏛️ 首都象征" },
-        { text: "中国历史上建立第一个统一的多民族封建国家的皇帝是谁？", answers: ["秦始皇","嬴政","Qin Shi Huang"], category: "历史", imageHint: "👑 千古一帝" },
-        { text: "宇宙中的五行具体指什么？", answers: ["金、木、水、火、土","金木水火土"], category: "哲学", imageHint: "⚙️ 五行学说" },
-        { text: "明成祖派谁七次下西洋？", answers: ["郑和","Zheng He"], category: "历史", imageHint: "🚢 航海壮举" },
-        { text: "哪部兵书是孙武所写？", answers: ["《孙子兵法》","孙子兵法","孙武兵法","The Art of War"], category: "军事", imageHint: "📖 兵学圣典" },
-        { text: "中国最大/最重要的节日是什么？", answers: ["春节","Spring Festival","Chinese New Year"], category: "民俗", imageHint: "🧨 传统佳节" },
-        { text: "中国传统文化中最核心的观念之一是什么？", answers: ["天人合一","天人合一思想","Unity of Heaven and Humanity"], category: "哲学", imageHint: "🌿 和谐观念" },
-        
-        // === 二、多选题 ===
-        { text: "中国人常见的书法工具是什么？合称为什么？", answers: ["笔、墨、纸、砚；文房四宝","笔墨纸砚 文房四宝"], category: "艺术", imageHint: "🖌️ 文房用具" },
-        { text: "下列节日中，属于中国节日的有哪些？", answers: ["春节,清明节,端午节,中秋节","春节清明端午中秋"], category: "民俗", imageHint: "🎑 传统节日" },
-        { text: "汉字有哪两种形式？", answers: ["简体字","繁体字","简体字、繁体字"], category: "语言", imageHint: "📝 汉字形体" },
-        { text: "唐朝前期出现了哪两个太平时期？", answers: ["开元盛世","贞观之治","开元盛世、贞观之治"], category: "历史", imageHint: "🏮 大唐盛世" },
-        { text: "属于儒家思想代表人物的是？", answers: ["孟子","孔子","孟子、孔子"], category: "哲学", imageHint: "👨‍🎓 儒家先贤" },
-        { text: "属于中国传统乐器的有哪些？", answers: ["琵琶","古筝","二胡","琵琶、古筝、二胡"], category: "艺术", imageHint: "🎵 传统乐器" },
-        { text: "中国古代四大发明是什么？", answers: ["指南针","造纸术","火药","印刷术","指南针、造纸术、火药、印刷术"], category: "科技", imageHint: "🧭 四大发明" },
-        { text: "属于中医常用治疗手段的有？", answers: ["针灸","按摩","针灸、按摩"], category: "医学", imageHint: "🌿 中医技法" },
-        { text: "属于京剧中男性角色的有？", answers: ["老生","武生","老生、武生"], category: "艺术", imageHint: "🎭 京剧行当" },
-        
-        // === 三、判断题/填空题/连线题等 ===
-        { text: "儒家经典“四书”是指哪四本书？", answers: ["《中庸》","《大学》","《论语》","《孟子》","中庸、大学、论语、孟子"], category: "经典", imageHint: "📚 儒家四书" },
-        { text: "上海特有的民居形式是什么？", answers: ["弄堂","石库门","里弄"], category: "建筑", imageHint: "🏘️ 海派建筑" },
-        { text: "《清明上河图》描绘的是清朝繁荣的景象。(正确/错误)", answers: ["错误","错","False"], category: "艺术", imageHint: "🖼️ 名画赏析" },
-        { text: "庄子是孔子之后最著名的儒家大师。(正确/错误)", answers: ["错误","错","False"], category: "哲学", imageHint: "📘 道家代表" },
-        { text: "谁发明了便利的活字印刷术？", answers: ["毕昇","毕升"], category: "科技", imageHint: "🖨️ 活字印刷" },
-        { text: "孔子晚年整理过的书籍，后世称为“五经”，包括哪些？", answers: ["《诗》","《书》","《易》","《礼》","《春秋》","诗、书、易、礼、春秋"], category: "经典", imageHint: "📜 五经" },
-        { text: "中国是世界上最早使用纸币的国家。(正确/错误)", answers: ["正确","对","True"], category: "经济", imageHint: "💵 纸币起源" },
-        { text: "谁成为世界上第一位把圆周率准确到小数点后六位的人？", answers: ["祖冲之"], category: "科学", imageHint: "🔢 数学成就" },
-        { text: "孟子认为，人性本来是恶的。(正确/错误)", answers: ["错误","错","False"], category: "哲学", imageHint: "👶 性善论" },
-        { text: "佛教是外来宗教。(正确/错误)", answers: ["正确","对","True"], category: "宗教", imageHint: "🕉️ 宗教传播" },
-        { text: "唐朝前期先后出现了“贞观之治”和“开元盛世”。(正确/错误)", answers: ["正确","对","True"], category: "历史", imageHint: "🏵️ 盛世双峰" },
-        { text: "《论语》是孔子编写的书籍。(正确/错误)", answers: ["错误","错","False"], category: "经典", imageHint: "📖 弟子编纂" },
-        { text: "“休”是形声字。(正确/错误)", answers: ["错误","错","False"], category: "语言", imageHint: "✍️ 会意字例" },
-        { text: "“文房四宝”是指什么？", answers: ["笔、墨、纸、砚","笔墨纸砚"], category: "文化", imageHint: "🖌️ 文房四宝" },
-        { text: "哪一年中国共产党十一届三中全会提出“改革开放”政策？", answers: ["1978年","1978"], category: "现代史", imageHint: "🇨🇳 伟大转折" },
-        { text: "从宋代开始，一种名叫什么纸币已经流通？", answers: ["交子"], category: "经济", imageHint: "💰 纸币先驱" },
-        { text: "最早的汉字叫做什么？", answers: ["甲骨文"], category: "文字", imageHint: "🐚 甲骨文字" },
-        { text: "哪一年以来的改革开放，使中国经济得到了前所未有的快速增长？", answers: ["1978年","1978"], category: "现代史", imageHint: "📈 改革开放" },
-        { text: "中国人数最多的少数民族是？", answers: ["壮族"], category: "民族", imageHint: "🎋 壮族风情" },
-        { text: "中国绘画的题材主要有三类：山水、花鸟和人物。其中，哪一类画在中国古代的地位最高？", answers: ["山水画","山水"], category: "艺术", imageHint: "⛰️ 山水意境" },
-        { text: "中国人数最多的民族是？", answers: ["汉族"], category: "民族", imageHint: "👪 汉族文化" },
-        { text: "黄河全长5500公里，是中国第几长河？", answers: ["第二长河","第二","2"], category: "地理", imageHint: "🌊 母亲河" },
-        { text: "香港是哪一年回归中国的？", answers: ["1997年","1997"], category: "近现代", imageHint: "🇭🇰 回归时刻" },
-        
-        // === 连线题（简称与城市/省份）===
-        { text: "“京”是指哪个城市？", answers: ["北京"], category: "地理简称", imageHint: "📍 首都简称" },
-        { text: "“沪”是指哪个城市？", answers: ["上海"], category: "地理简称", imageHint: "🌆 申城简称" },
-        { text: "“粤”是指哪个地区？", answers: ["广州","广东"], category: "地理简称", imageHint: "🥟 岭南文化" },
-        { text: "“川”是指哪个省份？", answers: ["四川"], category: "地理简称", imageHint: "🐼 天府之国" },
-        { text: "“琼”是指哪个省份？", answers: ["海南"], category: "地理简称", imageHint: "🌴 海岛风情" },
-        { text: "天津的简称是什么？", answers: ["津"], category: "地理简称", imageHint: "🏙️ 津门" },
-        { text: "重庆的简称是什么？", answers: ["渝"], category: "地理简称", imageHint: "🌉 山城简称" },
-        { text: "黑龙江的简称是什么？", answers: ["黑"], category: "地理简称", imageHint: "❄️ 黑土地" },
-        { text: "河南的简称是什么？", answers: ["豫"], category: "地理简称", imageHint: "🐘 豫州" },
-        { text: "山东的简称是什么？", answers: ["鲁"], category: "地理简称", imageHint: "⛰️ 齐鲁大地" },
-        
-        // === 简答题（春节习俗）===
-        { text: "请简述春节有哪些习俗，并说说在中国文化中的意义。", answers: ["贴春联","放鞭炮","年夜饭","守岁","拜年","发红包","团圆"], category: "民俗", imageHint: "🧧 春节习俗" },
-        
-        // === 来自 Excel 及额外历史题目 ===
-        { text: "中国的第一位皇帝是谁？", answers: ["秦始皇","嬴政"], category: "历史", imageHint: "👑 始皇帝" },
-        { text: "哪个朝代建造了长城的大部分？", answers: ["明朝","明"], category: "历史", imageHint: "🧱 明长城" },
-        { text: "中国最长的河流叫什么名字？", answers: ["长江","扬子江"], category: "地理", imageHint: "🌊 万里长江" },
-        { text: "“紫禁城”指的是什么？", answers: ["皇宫","故宫","北京故宫"], category: "建筑", imageHint: "🏯 皇家宫殿" },
-        { text: "中国最广泛庆祝的传统节日是什么？", answers: ["春节"], category: "民俗", imageHint: "🧨 春节" },
-        { text: "中国最大的高原是哪一个？", answers: ["青藏高原"], category: "地理", imageHint: "🏔️ 世界屋脊" },
-        { text: "中国东部与哪个大洋接壤？", answers: ["太平洋"], category: "地理", imageHint: "🌊 太平洋" },
-        { text: "哪个城市是中国的金融中心？", answers: ["上海"], category: "经济", imageHint: "🏦 金融中心" },
-        { text: "中国的主要出口产品是什么？", answers: ["电子产品"], category: "经济", imageHint: "📱 电子产品" },
-        { text: "中国的正式名称是什么？", answers: ["中华人民共和国"], category: "政治", imageHint: "🇨🇳 国号" },
-        { text: "哪种哲学对中国古代的教育和治理有深远影响？", answers: ["儒家思想","儒家"], category: "哲学", imageHint: "📚 儒家" },
-        { text: "谁是汉朝的开国皇帝？", answers: ["刘邦"], category: "历史", imageHint: "👑 汉高祖" },
-        { text: "丝绸之路是在哪个朝代开始的？", answers: ["汉朝","西汉"], category: "历史", imageHint: "🐫 丝路起点" },
-        { text: "中国南部地区的气候通常属于哪种类型？", answers: ["亚热带季风气候"], category: "地理", imageHint: "🌧️ 亚热带季风" },
-        { text: "哪个中国省以喀斯特地貌闻名？", answers: ["广西"], category: "地理", imageHint: "⛰️ 桂林山水" },
-        { text: "中国最冷的地区是哪一个？", answers: ["黑龙江省","黑龙江"], category: "地理", imageHint: "❄️ 冰雪之乡" },
-        { text: "中国哪个地区以梯田闻名？", answers: ["云南","广西"], category: "地理", imageHint: "🌾 龙脊梯田" },
-        { text: "“中国制造2025”旨在促进什么？", answers: ["制造业升级"], category: "经济", imageHint: "🏭 智能制造" },
-        { text: "哪个城市举办中国最大的贸易博览会？", answers: ["广州"], category: "经济", imageHint: "🏢 广交会" },
-        { text: "哪位中国画家以唐朝时期的作品闻名？", answers: ["吴道子"], category: "艺术", imageHint: "🎨 画圣" },
-        { text: "通过丝绸之路传入中国的宗教是哪一个？", answers: ["佛教"], category: "宗教", imageHint: "🕉️ 佛教东传" },
-        { text: "哪个中国城市以其天际线和珠江夜游而闻名？", answers: ["广州"], category: "地理", imageHint: "🌃 珠江夜景" },
-        { text: "中国最大的沙漠之一也是世界上最大的沙漠是哪一个？", answers: ["塔克拉玛干沙漠"], category: "地理", imageHint: "🏜️ 死亡之海" },
-        { text: "哪个概念描述了中国在自然与人类活动之间保持平衡的做法？", answers: ["天人合一"], category: "哲学", imageHint: "🌿 天人合一" },
-        { text: "哪项中国考试对高中生升学大学很重要？", answers: ["高考"], category: "教育", imageHint: "📝 高考" },
-        { text: "标志着中国首次登月的任务是哪一个？", answers: ["嫦娥三号"], category: "科技", imageHint: "🌙 嫦娥探月" },
-        { text: "中国庞大的空间站项目叫什么名字？", answers: ["天宫"], category: "科技", imageHint: "🚀 天宫空间站" },
-        { text: "哪本中国古代著作被认为是军事战略的奠基之作？", answers: ["《孙子兵法》","孙子兵法"], category: "军事", imageHint: "📖 兵学圣典" },
-        { text: "中国哪个地区最容易发生地震？", answers: ["四川"], category: "地理", imageHint: "🌋 地震带" },
-        { text: "中国工业部门中最重要的行业是什么？", answers: ["制造业"], category: "经济", imageHint: "🏭 制造业" },
-        { text: "哪本中国小说被认为是四大名著之一？", answers: ["《西游记》","西游记"], category: "文学", imageHint: "🐵 西游记" },
-        { text: "中国的人工智能发展计划叫什么名字？", answers: ["新一代人工智能发展规划"], category: "科技", imageHint: "🤖 AI" },
-        { text: "中国历史上唯一的女皇帝是谁？", answers: ["武则天"], category: "历史", imageHint: "👸 女皇武则天" },
-        { text: "哪个中国省以严重干旱和水资源短缺而闻名？", answers: ["甘肃"], category: "地理", imageHint: "🏜️ 干旱地区" },
-        { text: "哪位哲学家以推广中国古代的“兼爱”概念而闻名？", answers: ["墨子"], category: "哲学", imageHint: "📖 墨家" },
-        { text: "哪个法律体系影响了中国的民法结构？", answers: ["大陆法系","德国民法"], category: "法律", imageHint: "⚖️ 大陆法系" },
-        { text: "中国历史上第一个世袭制王朝是什么？", answers: ["夏朝","夏"], category: "历史", imageHint: "🏯 夏朝" },
-        { text: "商朝晚期的都城遗址，因出土大量甲骨文而闻名，是哪里？", answers: ["殷墟","河南安阳"], category: "历史", imageHint: "🐚 殷墟甲骨" },
-        { text: "西周时期确立的、强调嫡长子继承制的制度叫什么？", answers: ["宗法制"], category: "历史", imageHint: "👨‍👦 宗法制度" },
-        { text: "春秋时期哪位人物称霸后成为第一个霸主？", answers: ["齐桓公"], category: "历史", imageHint: "👑 春秋五霸" },
-        { text: "“卧薪尝胆”讲的是哪两位历史人物？", answers: ["勾践","夫差","勾践和夫差"], category: "历史", imageHint: "⚔️ 卧薪尝胆" },
-        { text: "战国时期规模最大的围歼战是哪一场？", answers: ["长平之战"], category: "历史", imageHint: "⚔️ 长平之战" },
-        { text: "中国历史上第一个中央集权的统一王朝是谁建立的？", answers: ["秦始皇","嬴政"], category: "历史", imageHint: "👑 秦始皇" },
-        { text: "秦朝统一文字后，全国通用的标准字体是什么？", answers: ["小篆"], category: "文字", imageHint: "✍️ 小篆" },
-        { text: "汉朝时期，张骞出使西域开辟的商路叫什么？", answers: ["丝绸之路"], category: "历史", imageHint: "🐫 丝绸之路" },
-        { text: "东汉时期改进造纸术的人物是谁？", answers: ["蔡伦"], category: "科技", imageHint: "📜 蔡伦造纸" },
-        { text: "三国时期魏国的建立者是谁？", answers: ["曹丕"], category: "历史", imageHint: "👑 魏文帝" },
-        { text: "东晋时期，哪场战役以少胜多，阻止了前秦南下？", answers: ["淝水之战"], category: "历史", imageHint: "⚔️ 淝水之战" },
-        { text: "北魏孝文帝改革中，将都城迁到了哪里？", answers: ["洛阳"], category: "历史", imageHint: "🏯 洛阳" },
-        { text: "隋朝开凿的大运河以哪个城市为中心？", answers: ["洛阳"], category: "历史", imageHint: "🚢 京杭大运河" },
-        { text: "唐朝哪位皇帝在位期间发生了“安史之乱”？", answers: ["唐玄宗","李隆基"], category: "历史", imageHint: "👑 唐玄宗" },
-        { text: "宋朝为加强中央集权，设什么机构掌管军政？", answers: ["枢密院"], category: "历史", imageHint: "🏛️ 枢密院" },
-        { text: "南宋时期，哪位将领抗金，却被以“莫须有”罪名杀害？", answers: ["岳飞"], category: "历史", imageHint: "⚔️ 岳飞" },
-        { text: "元朝时期，哪个民族被划分为四等人中的第一等？", answers: ["蒙古族","蒙古"], category: "历史", imageHint: "🏹 蒙古族" },
-        { text: "明朝废除丞相制度的皇帝是谁？", answers: ["明太祖","朱元璋"], category: "历史", imageHint: "👑 朱元璋" },
-        { text: "清朝哪个皇帝在位时间最长，并开创了“康乾盛世”？", answers: ["康熙","康熙皇帝"], category: "历史", imageHint: "👑 康熙大帝" },
-        { text: "中国近代史上第一个不平等条约是什么？", answers: ["《南京条约》","南京条约"], category: "历史", imageHint: "📜 南京条约" },
-        { text: "哪个条约标志着中国完全沦为半殖民地半封建社会？", answers: ["《辛丑条约》","辛丑条约"], category: "历史", imageHint: "📜 辛丑条约" },
-        { text: "辛亥革命爆发的时间是哪一年？", answers: ["1911年","1911"], category: "历史", imageHint: "🗓️ 辛亥革命" },
-        { text: "五四运动爆发于哪一年？直接导火索是什么？", answers: ["1919年","巴黎和会","1919"], category: "历史", imageHint: "📢 五四运动" },
-        { text: "中国共产党成立于哪一年？", answers: ["1921年","1921"], category: "历史", imageHint: "🎂 建党" },
-        { text: "抗日战争全面爆发的标志是什么？", answers: ["卢沟桥事变","七七事变"], category: "历史", imageHint: "⚔️ 七七事变" },
-        { text: "中国四大名著中，哪一部是描写农民起义的？", answers: ["《水浒传》","水浒传"], category: "文学", imageHint: "📖 水浒传" },
-        { text: "“床前明月光，疑是地上霜”是哪位诗人的作品？", answers: ["李白"], category: "文学", imageHint: "🌙 诗仙李白" },
-        { text: "“但愿人长久，千里共婵娟”出自苏轼的哪首词？", answers: ["《水调歌头·明月几时有》","水调歌头"], category: "文学", imageHint: "🌕 水调歌头" },
-        { text: "中国古代“六艺”指的是什么？", answers: ["礼、乐、射、御、书、数","礼乐射御书数"], category: "教育", imageHint: "🏹 君子六艺" },
-        { text: "中国传统四大节日除了春节、清明节、端午节，还有一个是什么？", answers: ["中秋节"], category: "民俗", imageHint: "🌕 中秋节" },
-        { text: "重阳节的主要习俗是什么？", answers: ["登高","赏菊","插茱萸"], category: "民俗", imageHint: "🍂 重阳登高" },
-        { text: "中国四大名绣分别是？", answers: ["苏绣","湘绣","粤绣","蜀绣"], category: "艺术", imageHint: "🪡 四大名绣" },
-        { text: "世界文化遗产“莫高窟”位于哪个省？", answers: ["甘肃","敦煌"], category: "艺术", imageHint: "🎨 莫高窟" },
-        { text: "“五岳”中的“东岳”是哪座山？", answers: ["泰山"], category: "地理", imageHint: "⛰️ 东岳泰山" },
-        { text: "中医四大经典著作中，哪一部相传是黄帝所作？", answers: ["《黄帝内经》","黄帝内经"], category: "医学", imageHint: "📗 黄帝内经" },
-        { text: "中国古代“四大发明”中，最早出现的是哪一项？", answers: ["指南针","司南"], category: "科技", imageHint: "🧭 司南" },
-        { text: "“和为贵”是哪个学派的核心思想之一？", answers: ["儒家"], category: "哲学", imageHint: "☮️ 和为贵" },
-        { text: "“道可道，非常道；名可名，非常名”出自哪部经典？", answers: ["《道德经》","道德经"], category: "哲学", imageHint: "☯️ 道德经" }
-    ];
-
-    // 初始化题库（带唯一ID）
-    let allQuestions = [];
-    let correctIds = [];
-    let wrongIds = [];
-
-    // 学习会话不重复队列
-    let remainingUnseenIds = [];
-    let currentQuestionObj = null;
-
-    // ---------- 存储操作 ----------
-    function saveQuestionsToLocal() {
-        localStorage.setItem('ch_questions_v2', JSON.stringify(allQuestions));
-    }
-    function saveCorrectWrong() {
-        localStorage.setItem('ch_correct_ids_v2', JSON.stringify(correctIds));
-        localStorage.setItem('ch_wrong_ids_v2', JSON.stringify(wrongIds));
-    }
-    function loadAllData() {
-        const storedQuestions = localStorage.getItem('ch_questions_v2');
-        if (storedQuestions) {
-            allQuestions = JSON.parse(storedQuestions);
-        } else {
-            // 初次加载，给默认题目分配ID
-            allQuestions = DEFAULT_QUESTIONS_RAW.map((q, idx) => ({
-                id: Date.now() + idx + Math.random() * 1000,
-                text: q.text,
-                answers: q.answers,
-                category: q.category,
-                imageHint: q.imageHint
-            }));
-            saveQuestionsToLocal();
-        }
-        const storedCorrect = localStorage.getItem('ch_correct_ids_v2');
-        const storedWrong = localStorage.getItem('ch_wrong_ids_v2');
-        correctIds = storedCorrect ? JSON.parse(storedCorrect) : [];
-        wrongIds = storedWrong ? JSON.parse(storedWrong) : [];
-        // 清理无效id（题目被删除后）
-        const validIds = new Set(allQuestions.map(q => q.id));
-        correctIds = correctIds.filter(id => validIds.has(id));
-        wrongIds = wrongIds.filter(id => validIds.has(id));
-        saveCorrectWrong();
-    }
-
-    function persistAll() {
-        saveQuestionsToLocal();
-        saveCorrectWrong();
-        updateCounters();
-        refreshRemainingPool();
-    }
-
-    // 刷新剩余未学池（未掌握的题目随机排序）
-    function refreshRemainingPool() {
-        const notMastered = allQuestions.filter(q => !correctIds.includes(q.id)).map(q => q.id);
-        for (let i = notMastered.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [notMastered[i], notMastered[j]] = [notMastered[j], notMastered[i]];
-        }
-        remainingUnseenIds = notMastered;
-    }
-
-    // 从池中获取新题目
-    function fetchNewQuestionFromPool() {
-        if (remainingUnseenIds.length === 0) {
-            const allMastered = allQuestions.length > 0 && allQuestions.every(q => correctIds.includes(q.id));
-            if (allMastered && allQuestions.length > 0) {
-                return { type: "complete", message: "🎉 恭喜！您已经答对所有题目！点击「重置学习记录」可继续挑战或添加新题。" };
-            } else {
-                refreshRemainingPool();
-                if (remainingUnseenIds.length === 0) return null;
-            }
-        }
-        const nextId = remainingUnseenIds.shift();
-        return allQuestions.find(q => q.id === nextId) || null;
-    }
-
-    function loadNewQuestion() {
-        const newQ = fetchNewQuestionFromPool();
-        if (!newQ) {
-            document.getElementById('questionText').innerHTML = "✨ 暂无新题目，请添加或重置学习记录。";
-            document.getElementById('questionImageArea').innerHTML = "🖼️ 待扩充题库";
-            currentQuestionObj = null;
-            return;
-        }
-        if (newQ.type === "complete") {
-            document.getElementById('questionText').innerHTML = newQ.message;
-            document.getElementById('questionImageArea').innerHTML = "🏆 全科制霸";
-            currentQuestionObj = null;
-            return;
-        }
-        currentQuestionObj = newQ;
-        document.getElementById('questionText').innerHTML = newQ.text;
-        document.getElementById('questionImageArea').innerHTML = `🖼️ 【${newQ.category || '文化'}】 ${newQ.imageHint || '知识配图'}`;
-        document.getElementById('answerInput').value = '';
-        document.getElementById('feedbackMsg').innerHTML = '';
-        document.getElementById('feedbackMsg').className = 'feedback';
-    }
-
-    // 答案匹配逻辑
-    function normalizeAnswer(str) {
-        let s = str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, c => String.fromCharCode(c.charCodeAt(0)-0xFEE0)).toLowerCase().trim();
-        s = s.replace(/[，,、；;《》【】“”''""!！?？·\s]/g, '');
-        return s;
-    }
-    function isAnswerCorrect(userAns, question) {
-        let normUser = normalizeAnswer(userAns);
-        if (question.text.includes("不是中国的邻国")) {
-            const neighborList = ["朝鲜","俄罗斯","蒙古","哈萨克斯坦","吉尔吉斯斯坦","塔吉克斯坦","阿富汗","巴基斯坦","印度","尼泊尔","不丹","缅甸","老挝","越南"];
-            const inputClean = normalizeAnswer(userAns);
-            const isNeighbor = neighborList.some(nei => normalizeAnswer(nei) === inputClean);
-            if (!isNeighbor && inputClean.length > 0) return true;
-            for(let std of question.answers) if(normalizeAnswer(std) === inputClean) return true;
-            return false;
-        }
-        for(let std of question.answers) {
-            let normStd = normalizeAnswer(std);
-            if(normUser === normStd) return true;
-            if(normStd.includes(',') && normUser.includes(',')) {
-                if(normUser.split(',').sort().join(',') === normStd.split(',').sort().join(',')) return true;
-            }
-            if(normStd.length>2 && normUser.includes(normStd)) return true;
-            if(normUser.length>2 && normStd.includes(normUser)) return true;
-            if(question.text.includes("春节有哪些习俗") && (normUser.includes("春联")||normUser.includes("年夜饭")||normUser.includes("团圆"))) return true;
-        }
-        return false;
-    }
-
-    function submitCheck() {
-        if (!currentQuestionObj) { showFeedback("没有题目，请点击下一题或重置。", false); return; }
-        let userAnswer = document.getElementById('answerInput').value;
-        let correct = isAnswerCorrect(userAnswer, currentQuestionObj);
-        let qid = currentQuestionObj.id;
-        let mainAnswer = currentQuestionObj.answers[0].substring(0, 60);
-        if(correct) {
-            showFeedback(`✅ 答案正确！已存入“答对的地方”`, true);
-            if(!correctIds.includes(qid)) correctIds.push(qid);
-            wrongIds = wrongIds.filter(id => id !== qid);
-            persistAll();
-            remainingUnseenIds = remainingUnseenIds.filter(id => id !== qid);
-            loadNewQuestion();
-        } else {
-            showFeedback(`❌ 答案不对。 参考答案：${mainAnswer}。已存入“没答对的地方”`, false);
-            if(!wrongIds.includes(qid)) wrongIds.push(qid);
-            correctIds = correctIds.filter(id => id !== qid);
-            persistAll();
-            remainingUnseenIds = remainingUnseenIds.filter(id => id !== qid);
-        }
-        updateCounters();
-    }
-    function showFeedback(msg, isCorrect) {
-        let fbDiv = document.getElementById('feedbackMsg');
-        fbDiv.innerHTML = msg;
-        fbDiv.className = `feedback ${isCorrect ? 'correct-fb' : 'wrong-fb'}`;
-    }
-    function nextQuestionHandler() { loadNewQuestion(); }
-
-    function updateCounters() {
-        document.getElementById('totalCount').innerText = allQuestions.length;
-        document.getElementById('correctCount').innerText = correctIds.length;
-        document.getElementById('wrongCount').innerText = wrongIds.length;
-        renderCorrectList();
-        renderWrongList();
-        renderManageList();
-    }
-
-    function renderCorrectList() {
-        let container = document.getElementById('correctListContainer');
-        let correctQuestions = allQuestions.filter(q => correctIds.includes(q.id));
-        if(!correctQuestions.length) { container.innerHTML = '<div>✨ 暂无答对题目</div>'; return; }
-        container.innerHTML = correctQuestions.map(q => `<div class="list-item"><span class="list-qtext">📌 ${q.text}</span><button class="small secondary" data-id="${q.id}" data-action="remove-correct">从答对移除</button></div>`).join('');
-        attachRemoveCorrectEvents();
-    }
-    function attachRemoveCorrectEvents() {
-        document.querySelectorAll('[data-action="remove-correct"]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                let id = Number(btn.dataset.id);
-                correctIds = correctIds.filter(i => i !== id);
-                persistAll();
-                loadNewQuestion();
-            });
-        });
-    }
-    function renderWrongList() {
-        let container = document.getElementById('wrongListContainer');
-        let wrongQuestions = allQuestions.filter(q => wrongIds.includes(q.id));
-        if(!wrongQuestions.length) { container.innerHTML = '<div>🎉 暂无错题，继续保持～</div>'; return; }
-        container.innerHTML = wrongQuestions.map(q => `<div class="list-item"><span class="list-qtext">❌ ${q.text}</span><button class="small secondary" data-id="${q.id}" data-action="practice-wrong">📖 练习此题</button><button class="small warning" data-id="${q.id}" data-action="remove-wrong">🗑️ 忽略</button></div>`).join('');
-        document.querySelectorAll('[data-action="practice-wrong"]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                let id = Number(btn.dataset.id);
-                let q = allQuestions.find(qq => qq.id === id);
-                if(q) { currentQuestionObj = q; document.getElementById('questionText').innerHTML = q.text; document.getElementById('questionImageArea').innerHTML = `🖼️ 【${q.category}】 错题专练`; document.querySelector('[data-tab="learn"]').click(); }
-            });
-        });
-        document.querySelectorAll('[data-action="remove-wrong"]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                let id = Number(btn.dataset.id);
-                wrongIds = wrongIds.filter(i => i !== id);
-                persistAll();
-            });
-        });
-    }
-
-    // 管理题库渲染（带编辑删除）
-    function renderManageList() {
-        let container = document.getElementById('allQuestionsList');
-        let searchTerm = document.getElementById('searchQuestionInput')?.value.toLowerCase() || '';
-        let filtered = allQuestions.filter(q => q.text.toLowerCase().includes(searchTerm));
-        if(!filtered.length) { container.innerHTML = '<div>📭 没有找到题目</div>'; return; }
-        container.innerHTML = filtered.map(q => `
-            <div class="list-item" data-qid="${q.id}">
-                <span class="list-qtext"><strong>${q.text}</strong><br><span style="font-size:0.75rem;">类别: ${q.category} | 答案: ${q.answers.join('; ').substring(0,50)}${q.answers.join(';').length>50?'…':''}</span></span>
-                <div class="edit-buttons">
-                    <button class="small secondary edit-q-btn" data-id="${q.id}">✏️ 编辑</button>
-                    <button class="small warning delete-q-btn" data-id="${q.id}">🗑️ 删除</button>
-                </div>
-            </div>
-        `).join('');
-        document.querySelectorAll('.edit-q-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                let id = Number(btn.dataset.id);
-                let q = allQuestions.find(qq => qq.id === id);
-                if(q) {
-                    let newText = prompt("编辑问题:", q.text);
-                    if(newText && newText.trim()) q.text = newText.trim();
-                    let newAnswers = prompt("编辑答案 (多个用分号隔开):", q.answers.join(';'));
-                    if(newAnswers && newAnswers.trim()) q.answers = newAnswers.split(';').map(s=>s.trim()).filter(s=>s);
-                    let newCat = prompt("编辑类别:", q.category);
-                    if(newCat !== null) q.category = newCat.trim() || "未分类";
-                    let newImg = prompt("图片描述:", q.imageHint);
-                    if(newImg !== null) q.imageHint = newImg.trim() || "📌";
-                    persistAll();
-                    renderManageList();
-                    renderCorrectList(); renderWrongList();
-                    refreshRemainingPool();
-                    loadNewQuestion();
-                }
-            });
-        });
-        document.querySelectorAll('.delete-q-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                if(confirm("确定删除此题吗？相关学习记录也会清除。")) {
-                    let id = Number(btn.dataset.id);
-                    allQuestions = allQuestions.filter(q => q.id !== id);
-                    correctIds = correctIds.filter(i => i !== id);
-                    wrongIds = wrongIds.filter(i => i !== id);
-                    persistAll();
-                    renderManageList();
-                    updateCounters();
-                    refreshRemainingPool();
-                    loadNewQuestion();
-                }
-            });
-        });
-    }
-
-    function addNewQuestion() {
-        let qtext = document.getElementById('newQuestion').value.trim();
-        let ansRaw = document.getElementById('newAnswer').value.trim();
-        let cat = document.getElementById('newCategory').value.trim() || "自定义";
-        let img = document.getElementById('newImageDesc').value.trim() || "📌 新知识";
-        if(!qtext || !ansRaw) { alert("请填写问题和答案"); return; }
-        const newId = Date.now() + Math.random();
-        allQuestions.push({
-            id: newId,
-            text: qtext,
-            answers: ansRaw.split(';').map(s=>s.trim()),
-            category: cat,
-            imageHint: img
-        });
-        persistAll();
-        document.getElementById('newQuestion').value = '';
-        document.getElementById('newAnswer').value = '';
-        document.getElementById('newCategory').value = '';
-        document.getElementById('newImageDesc').value = '';
-        refreshRemainingPool();
-        loadNewQuestion();
-        updateCounters();
-        renderCategoryHint();
-        alert("新题目已添加！");
-    }
-    function renderCategoryHint() {
-        let cats = [...new Set(allQuestions.map(q=>q.category))];
-        document.getElementById('categoryList').innerHTML = cats.map(c=>`<span class="category-tag">#${c}</span>`).join('');
-    }
-    function resetStats() {
-        correctIds = [];
-        wrongIds = [];
-        persistAll();
-        refreshRemainingPool();
-        loadNewQuestion();
-        alert("学习记录已重置，所有题目重新加入练习队列");
-    }
-
-    // 事件绑定与初始化
-    function init() {
-        loadAllData();
-        refreshRemainingPool();
-        loadNewQuestion();
-        updateCounters();
-        renderCategoryHint();
-        document.getElementById('submitAnswer').addEventListener('click', submitCheck);
-        document.getElementById('nextQuestion').addEventListener('click', nextQuestionHandler);
-        document.getElementById('resetStudyStats').addEventListener('click', resetStats);
-        document.getElementById('practiceWrongBtn').addEventListener('click', () => { let wrongList = allQuestions.filter(q=>wrongIds.includes(q.id)); if(wrongList.length) { currentQuestionObj = wrongList[0]; document.getElementById('questionText').innerHTML = currentQuestionObj.text; document.getElementById('questionImageArea').innerHTML = `🖼️ 【${currentQuestionObj.category}】 错题专练`; document.querySelector('[data-tab="learn"]').click(); } else alert('暂无错题'); });
-        document.getElementById('clearAllCorrectBtn').addEventListener('click', () => { correctIds = []; persistAll(); refreshRemainingPool(); loadNewQuestion(); });
-        document.getElementById('addQuestionBtn').addEventListener('click', addNewQuestion);
-        document.getElementById('searchQuestionInput').addEventListener('input', () => renderManageList());
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-                btn.classList.add('active');
-                document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active-panel'));
-                document.getElementById(btn.dataset.tab + 'Panel').classList.add('active-panel');
-                if(btn.dataset.tab === 'manage') renderManageList();
-                if(btn.dataset.tab === 'correct') renderCorrectList();
-                if(btn.dataset.tab === 'wrong') renderWrongList();
-            });
-        });
-    }
-    init();
+    // تبديل صيغة الإدخال مع أمثلة توضيحية
+    document.getElementById('batchFormatJs').addEventListener('click', () => {
+        document.getElementById('batchQuestions').placeholder = '{ text: "Question", answers: ["Answer1","Answer2"], category: "Category", group: "HSK 1", subgroup: "HSK1", imageHint: "🖼️" }';
+    });
+    document.getElementById('batchFormatJson').addEventListener('click', () => {
+        document.getElementById('batchQuestions').placeholder = '[{"text": "...", "answers": ["..."], "category": "...", "group": "...", "subgroup": "..."}]';
+    });
+    document.getElementById('batchFormatCsv').addEventListener('click', () => {
+        document.getElementById('batchQuestions').placeholder = '"Question","Answer1,Answer2",Category,Group,Subgroup\n"What is X?","Answer1,Answer2",Geography,HSK 1,HSK1';
+    });
+    document.getElementById('batchFormatText').addEventListener('click', () => {
+        document.getElementById('batchQuestions').placeholder = 'Question | Answer1,Answer2 | Category | Group | Subgroup';
+    });
 </script>
+
+<!-- 加载脚本：data.js → app.js → i18n.js -->
+<script src="data.js"></script>
+<script src="i18n.js"></script>
+<script type="module" defer src="app.js"></script>
 </body>
 </html>

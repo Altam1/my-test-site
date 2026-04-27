@@ -1,0 +1,28 @@
+{
+  "hsk6": {
+    "name": "HSK6",
+    "nameEn": "HSK6",
+    "nameZh": "HSK6",
+    "lessons": {
+      "lesson30": { "name": "Lesson 30", "file": "packs/hsk6/lesson30.json" },
+      "lesson31": { "name": "Lesson 31", "file": "packs/hsk6/lesson31.json" },
+      "lesson32": { "name": "Lesson 32", "file": "packs/hsk6/lesson32.json" }
+    }
+  },
+  "hsk4": {
+    "name": "HSK4",
+    "nameEn": "HSK4",
+    "nameZh": "HSK4",
+    "lessons": {
+      "lesson1": { "name": "HSK 4", "file": "packs/hsk4/HSK4.json" }
+    }
+  },
+  "hsk3": {
+    "name": "HSK3",
+    "nameEn": "HSK3",
+    "nameZh": "HSK3",
+    "lessons": {
+      "lesson1": { "name": "HSK 3", "file": "packs/hsk3/HSK3.json" }
+    }
+  }
+}
