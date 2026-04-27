@@ -4,9 +4,9 @@
     "nameEn": "HSK6",
     "nameZh": "HSK6",
     "lessons": {
-      "lesson30": { "name": "Lesson 30", "file": "packs/hsk6/lesson30.json" },
-      "lesson31": { "name": "Lesson 31", "file": "packs/hsk6/lesson31.json" },
-      "lesson32": { "name": "Lesson 32", "file": "packs/hsk6/lesson32.json" }
+      "lesson30": { "name": "Lesson 30", "file": "packs/HSK6/lesson30.json" },
+      "lesson31": { "name": "Lesson 31", "file": "packs/HSK6/lesson31.json" },
+      "lesson32": { "name": "Lesson 32", "file": "packs/HSK6/lesson32.json" }
     }
   },
   "hsk4": {
