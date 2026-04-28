@@ -22,7 +22,9 @@
     "nameEn": "HSK3",
     "nameZh": "HSK3",
     "lessons": {
-      "lesson1": { "name": "HSK 3", "file": "packs/HSK3/HSK3.json" }
+      "lesson1": { "name": "HSK 3", "file": "packs/HSK3/HSK3.json" },
+      "lesson2": { "name": "HSK 3 - Arabic", "file": "packs/HSK3/HSK3-Arabic.json" }
+
     }
   }
 }

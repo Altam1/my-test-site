@@ -245,12 +245,30 @@
 <div class="app-container">
     <div class="header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
         <div>
-            <h1 data-i18n="appTitle">📖 自测学习库</h1>
+            <h1 data-i18n="appTitle">📖 Brain Gym</h1>
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
             <button id="langToggleBtn" class="tab-btn" style="background: #e0cbb0;">🌐 中文 / English</button>
-            <div id="userArea" style="display: flex; gap: 8px; align-items: center;">
-                <span id="userDisplay" style="background: #ede3d4; padding: 6px 14px; border-radius: 40px; font-size: 0.85rem;"></span>
+            <div id="userArea" style="display: flex; gap: 8px; align-items: center; position: relative;">
+                <!-- قائمة المستخدم المنسدلة -->
+                <div id="userMenu" style="position:relative; display:inline-block;">
+                    <span id="userDisplay" style="background: #ede3d4; padding: 6px 14px; border-radius: 40px; font-size: 0.85rem; cursor:pointer;">👤 Loading...</span>
+                    <div id="userDropdown" style="display:none; position:absolute; top:100%; right:0; background:white; border-radius:28px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:12px; min-width:180px; z-index:1000; margin-top:8px;">
+                        <div style="margin-bottom:8px;">
+                            <button id="changeNameBtn" class="small" style="width:100%; background:#ede3d4; color:#5e3a1f;">✏️ Change Name</button>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <button id="showRankingBtn" class="small" style="width:100%; background:#ede3d4; color:#5e3a1f;">🏆 Show Ranking</button>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <button id="createGroupBtn" class="small" style="width:100%; background:#ede3d4; color:#5e3a1f;">👥 Create Study Group</button>
+                        </div>
+                        <div>
+                            <button id="sendMessageBtn" class="small" style="width:100%; background:#ede3d4; color:#5e3a1f;">💬 Send Message</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="manualSyncBtn" class="small" style="background:#6c8b5e; color:white;">🔄 Sync Now</button>
                 <button id="upgradeAccountBtn" class="small secondary" style="display: none; background: #c67b3c;">🔐 Sign up / Login</button>
                 <button id="logoutBtn" class="small secondary" style="display: none;">🚪 Logout</button>
             </div>
@@ -467,6 +485,6 @@ Who wrote Journey to the West? | Wu Cheng'en | Literature | HSK 5 | Novels
 <!-- 加载脚本：data.js → app.js → i18n.js -->
 <script src="data.js"></script>
 <script src="i18n.js"></script>
-<script type="module" defer src="app.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>

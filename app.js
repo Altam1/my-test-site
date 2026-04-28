@@ -1,6 +1,6 @@
-// app.js - 所有应用程序逻辑，依赖 data.js 中的 DEFAULT_QUESTIONS_RAW
+// app.js - DEFAULT_QUESTIONS_RAW
 // Firebase imports for cloud sync (added without breaking existing features)
-import { auth, db, doc, getDoc, setDoc, updateDoc } from './firebase-config.js';
+import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, updateDoc, doc, setDoc, getDoc, collection, getDocs, query, where, arrayUnion, arrayRemove } from './firebase-config.js';
 // ---------- 全局变量 ----------
 let allQuestions = [];
 let correctIds = [];
@@ -14,8 +14,9 @@ let selectedSubgroup = "all";
 let practiceMode = "all"; // "all" or "wrongOnly"ly"
 let currentUser = null;        // Stores current user object from localStorage
 let isFirebaseUser = false;    // True if logged in (not guest)
-let isProcessing = false;   // يمنع الإرسال المتكرر أثناء المعالجة
+let isProcessing = false;   
 let deleteGroupSelect, deleteSubgroupSelect;  // سيتم تعيينهما لاحقاً
+let lastAnsweredId = null;     
 
 // إدارة المستخدم 
 function loadCurrentUser() {
@@ -208,38 +209,94 @@ function deleteSubgroup() {
     alert(`✅ Deleted ${toDeleteIds.length} questions from "${group} / ${subgroup}".`);
 }
 
-// تحميل وإضافة درس فردي (ملف خفيف يحتوي فقط على كلمات وإجابات)
+// تحميل وإضافة درس فردي ( يحتوي على كلمات وإجابات)
 async function downloadAndAddLesson(packId, lessonId, lessonInfo) {
     const { file, name } = lessonInfo;
     try {
         const res = await fetch(file);
-        let wordsData = await res.json();
+        const textContent = await res.text();   // نقرأ كنص أولاً
+        let wordsData;
         
-        // تحويل التنسيق المبسط إلى تنسيق السؤال الكامل
-        const newQuestions = [];
-        for (let item of wordsData) {
-            let text, answers, type;
-            if (Array.isArray(item)) {
-                text = item[0];
-                answers = item[1];
-                type = item[2] || '';
-            } else {
-                text = item.text;
-                answers = item.answers;
-                type = item.type || '';
+        // محاولة تحويل كمصفوفة JSON
+        if (textContent.trim().startsWith('[')) {
+            wordsData = JSON.parse(textContent);
+        } else {
+            // معالجة كنص CSV (سطر بسطر)
+            const lines = textContent.split(/\r?\n/);
+            wordsData = [];
+            for (let line of lines) {
+                line = line.trim();
+                if (line === "") continue;
+                // تقسيم الحقول مع احترام علامات الاقتباس البسيطة
+                let fields = [];
+                let current = '';
+                let inQuotes = false;
+                for (let ch of line) {
+                    if (ch === '"') inQuotes = !inQuotes;
+                    else if (ch === ',' && !inQuotes) {
+                        fields.push(current.trim());
+                        current = '';
+                    } else {
+                        current += ch;
+                    }
+                }
+                fields.push(current.trim());
+                // إزالة علامات الاقتباس من الحقول
+                fields = fields.map(f => f.replace(/^"|"$/g, ''));
+                
+                if (fields.length < 2) continue;
+                
+                const chinese = fields[0];
+                let arabicRaw = fields[1];
+                // تقسيم المعاني المتعددة إما بـ "|" أو "،" أو ","
+                let arabicMeanings = arabicRaw.split(/[|،,]/).map(m => m.trim()).filter(m => m);
+                const pinyinPart = fields[2] || '';
+                const group = fields[3] || packId.toUpperCase();
+                const subgroup = (fields.length >= 5 && fields[4].trim()) ? fields[4].trim() : lessonId;
+                
+                wordsData.push({
+                    text: chinese,
+                    answers: arabicMeanings,
+                    pinyin: pinyinPart,
+                    group: group,
+                    subgroup: subgroup,
+                    imageHint: pinyinPart ? `📖 ${pinyinPart}` : "📦"
+                });
             }
-            // يمكن استخلاص المجموعة من packId (مثل 'hsk6' -> 'HSK6')
-            let groupName = packId.toUpperCase();
-            newQuestions.push({
-                text: text,
-                answers: answers,
-                category: groupName,      // التصنيف العام
-                group: groupName,         // المجموعة الرئيسية
-                subgroup: lessonId,       // مثلاً 'lesson30'
-                imageHint: "📦"
-            });
         }
-
+        
+        let newQuestions = [];
+        
+        // معالجة البيانات حسب نوعها
+        if (Array.isArray(wordsData)) {
+            for (let item of wordsData) {
+                let text, answers, group, subgroup, imageHint;
+                // حالة الكائن (object)
+                if (typeof item === 'object' && !Array.isArray(item)) {
+                    text = item.text;
+                    answers = item.answers;
+                    group = item.group || packId.toUpperCase();
+                    subgroup = item.subgroup || lessonId;
+                    imageHint = item.imageHint || (item.pinyin ? `📖 ${item.pinyin}` : "📦");
+                }
+                // حالة المصفوفة المبسطة ["كلمة", ["ترجمة"]]
+                else if (Array.isArray(item)) {
+                    text = item[0];
+                    answers = item[1];
+                    group = packId.toUpperCase();
+                    subgroup = lessonId;
+                    imageHint = item[2] ? `📖 ${item[2]}` : "📦";
+                } else {
+                    continue;
+                }
+                if (text && Array.isArray(answers) && answers.length) {
+                    newQuestions.push({ text, answers, group, subgroup, imageHint });
+                }
+            }
+        }
+        
+        if (newQuestions.length === 0) throw new Error("No valid questions found in file.");
+        
         let added = 0, skipped = 0;
         for (let q of newQuestions) {
             const exists = allQuestions.some(ex => ex.text === q.text);
@@ -249,7 +306,7 @@ async function downloadAndAddLesson(packId, lessonId, lessonInfo) {
                     id: newId,
                     text: q.text,
                     answers: q.answers,
-                    category: q.category,
+                    category: q.group,
                     group: q.group,
                     subgroup: q.subgroup,
                     imageHint: q.imageHint
@@ -268,10 +325,11 @@ async function downloadAndAddLesson(packId, lessonId, lessonInfo) {
             populateGroupFilter();
             alert(`✅ Added ${added} new words from ${name}. (${skipped} skipped)`);
         } else {
-            alert(getTranslation('packDuplicate') || "All words already exist.");
+            alert("All words already exist.");
         }
     } catch(e) {
         alert(`❌ Failed to load lesson: ${e.message}`);
+        console.error(e);
     }
     document.getElementById('packModal').style.display = 'none';
 }
@@ -470,6 +528,9 @@ function loadNewQuestion() {
     const fb = document.getElementById('feedbackMsg');
     fb.innerHTML = '';
     fb.className = 'feedback';
+    if (newQ && newQ.type !== "complete") {
+        lastAnsweredId = null;   
+    }
 }
 
 // ---------- 答案匹配（宽松匹配）----------
@@ -555,7 +616,7 @@ function submitCheck() {
         autoNextTimer = setTimeout(() => {
             loadNewQuestion();
             autoNextTimer = null;
-            isProcessing = false;   // إعادة التفعيل بعد الانتقال للسؤال الجديد
+            isProcessing = false;
         }, 2000);
     } else {
         // إجابة خاطئة: إعادة تعيين العداد المتتالي
@@ -569,10 +630,13 @@ function submitCheck() {
         persistAll();
         remainingUnseenIds = remainingUnseenIds.filter(id => id !== qid);
         
-        isProcessing = false;   // في حالة الخطأ، يمكن إعادة الإرسال فوراً
+        isProcessing = false;
+        
+        lastAnsweredId = qid;
     }
     updateCounters();
 }
+
 function getTranslation(key) {
     const lang = (typeof currentLang !== 'undefined') ? currentLang : 'zh';
     const t = translations[lang];
@@ -1007,18 +1071,14 @@ function applyGroupFilter() {
     const group = document.getElementById('groupFilter').value;
     const subgroup = document.getElementById('subgroupFilter').value;
     
-    // اختيار وضع 
-    const mode = confirm(getTranslation('practiceModeChoice') || "Do you want to practice ONLY wrong answers in this group?\n\nOK = Wrong answers only\nCancel = All questions (correct + wrong)");
-    
     selectedGroup = group;
     selectedSubgroup = subgroup;
-    practiceMode = mode ? "wrongOnly" : "all";
+    practiceMode = "all";   // بدون سؤال المستخدم
     
     refreshRemainingPool();
     loadNewQuestion();
     updateCounters();
 }
-
 function resetGroupFilter() {
     document.getElementById('groupFilter').value = "all";
     document.getElementById('subgroupFilter').value = "all";
@@ -1029,6 +1089,143 @@ function resetGroupFilter() {
     refreshRemainingPool();
     loadNewQuestion();
     updateCounters();
+}
+
+// ========== إدارة قائمة المستخدم ==========
+async function initUserMenu() {
+    const display = document.getElementById('userDisplay');
+    const dropdown = document.getElementById('userDropdown');
+    if (!display || !dropdown) return;
+    
+    display.onclick = (e) => {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    };
+    window.addEventListener('click', () => { dropdown.style.display = 'none'; });
+    
+    // تغيير الاسم
+    document.getElementById('changeNameBtn')?.addEventListener('click', async () => {
+        const newName = prompt("Enter your new name:", currentUser.name);
+        if (newName && newName.trim()) {
+            currentUser.name = newName.trim();
+            localStorage.setItem('ch_current_user', JSON.stringify(currentUser));
+            document.getElementById('userDisplay').innerHTML = `👤 ${currentUser.name}`;
+            if (!currentUser.isGuest && currentUser.uid) {
+                await updateDoc(doc(db, 'users', currentUser.uid), { name: currentUser.name });
+            }
+            alert("Name updated!");
+        }
+        dropdown.style.display = 'none';
+    });
+    
+    // عرض الترتيب العالمي
+document.getElementById('showRankingBtn')?.addEventListener('click', async () => {
+    if (!currentUser || currentUser.isGuest) {
+        alert("🏆 Ranking is only for registered users. Please sign up.");
+        dropdown.style.display = 'none';
+        return;
+    }
+
+    try {
+        console.log("Fetching users collection...");
+        const usersRef = collection(db, 'users');
+        const snapshot = await getDocs(usersRef);
+        
+        console.log("Number of users found:", snapshot.size);
+        
+        if (snapshot.empty) {
+            alert("will be available in the next update");
+            dropdown.style.display = 'none';
+            return;
+        }
+        
+        let rankings = [];
+        snapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            const totalCorrect = (data.correctIds || []).length;
+            rankings.push({
+                name: data.name || docSnap.id,
+                correct: totalCorrect,
+                uid: docSnap.id
+            });
+        });
+        
+        rankings.sort((a, b) => b.correct - a.correct);
+        
+        // مكان المستخدم الحالي
+        let currentRank = rankings.findIndex(r => r.uid === currentUser.uid) + 1;
+        let currentCorrect = rankings.find(r => r.uid === currentUser.uid)?.correct || 0;
+        
+        let rankMsg = `🏆 GLOBAL RANKING 🏆\n\n`;
+        rankMsg += `You are #${currentRank} with ${currentCorrect} correct answers.\n\n`;
+        rankMsg += `📊 Top 10 Learners:\n`;
+        
+        const top10 = rankings.slice(0, 10);
+        top10.forEach((u, idx) => {
+            let medal = "";
+            if (idx === 0) medal = "🥇 ";
+            else if (idx === 1) medal = "🥈 ";
+            else if (idx === 2) medal = "🥉 ";
+            rankMsg += `${medal}${idx+1}. ${u.name}: ${u.correct} ✅\n`;
+        });
+        
+        if (rankings.length > 10) {
+            rankMsg += `\n... and ${rankings.length - 10} more learners.`;
+        }
+        
+        alert(rankMsg);
+    } catch (error) {
+        console.error("Error loading ranking:", error);
+        alert(`❌ Ranking error: ${error.message}\n\nPlease check Firestore rules and try again.`);
+    }
+    dropdown.style.display = 'none';
+});
+    
+    // إنشاء مجموعة
+    document.getElementById('createGroupBtn')?.addEventListener('click', () => {
+        alert("👥 Study Groups feature will be available in the next update.");
+        dropdown.style.display = 'none';
+    });
+    
+    // إرسال رسالة
+    document.getElementById('sendMessageBtn')?.addEventListener('click', () => {
+        alert("💬 Messaging feature will be available in the next update.");
+        dropdown.style.display = 'none';
+    });
+}
+
+// ========== المزامنة مع Firebase ==========
+let syncInterval = null;
+let isSyncing = false;
+
+async function syncWithFirebaseManual() {
+    if (!currentUser || currentUser.isGuest) { alert("Only registered users can sync."); return; }
+    if (isSyncing) { alert("Already syncing..."); return; }
+    isSyncing = true;
+    const btn = document.getElementById('manualSyncBtn');
+    if (btn) { btn.innerHTML = '⏳ Syncing...'; btn.disabled = true; }
+    try {
+        await syncToFirebase();
+        await loadFromFirebase();
+        refreshRemainingPool();
+        loadNewQuestion();
+        updateCounters();
+        renderCategoryHint();
+        populateGroupFilter();
+    } catch(e) { alert("Sync failed: " + e.message); }
+    finally {
+        isSyncing = false;
+        if (btn) { btn.innerHTML = '🔄 Sync Now'; btn.disabled = false; }
+    }
+}
+
+function startAutoSync(intervalMinutes = 5) {
+    if (syncInterval) clearInterval(syncInterval);
+    syncInterval = setInterval(() => {
+        if (currentUser && !currentUser.isGuest && !isSyncing) {
+            syncWithFirebaseManual(); // بدون تنبيه (يمكن إضافة alert اختياري)
+        }
+    }, intervalMinutes * 60 * 1000);
 }
 
 // ---------- 初始化 & 事件绑定 ----------
@@ -1094,25 +1291,44 @@ async function init() {
         });
     });
 
-    // ربط أحداث الفلاتر
+    // ربط أحداث الفلاتر - التطبيق التلقائي عند تغيير القيم
     const groupFilter = document.getElementById('groupFilter');
+    const subgroupFilter = document.getElementById('subgroupFilter');
     const applyBtn = document.getElementById('applyGroupFilter');
 
     if (groupFilter) {
-        groupFilter.addEventListener('change', () => populateSubgroupFilter(groupFilter.value));
+        groupFilter.addEventListener('change', () => {
+            if (subgroupFilter) populateSubgroupFilter(groupFilter.value);
+            applyGroupFilter();  // تطبيق تلقائي دون انتظار زر
+        });
+    }
+    if (subgroupFilter) {
+        subgroupFilter.addEventListener('change', () => applyGroupFilter());
     }
     if (applyBtn) applyBtn.addEventListener('click', applyGroupFilter);
 
     // تعبئة القوائم المنسدلة
     populateGroupFilter();
 
-    // ✅ ميزة إرسال الإجابة بالضغط على Enter
+    // ✅ ميزة إرسال الإجابة بالضغط على Enter (مع دعم الانتقال السريع بعد الخطأ)
     const answerInput = document.getElementById('answerInput');
     if (answerInput) {
-        answerInput.addEventListener('keypress', function(event) {
+        answerInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                event.preventDefault(); // منع أي سلوك افتراضي
-                document.getElementById('submitAnswer').click(); // تنشيط زر الإرسال
+                event.preventDefault();
+                // إذا كانت هناك نتيجة إجابة معروضة بالفعل (تم الإجابة على هذا السؤال)
+                if (currentQuestionObj && lastAnsweredId === currentQuestionObj.id) {
+                    // الانتقال إلى السؤال التالي (بدلاً من إعادة الإرسال)
+                    nextQuestionHandler();
+                } else if (autoNextTimer) {
+                    // إذا كان هناك تأخير (بعد إجابة صحيحة أو خاطئة) ننتقل فوراً
+                    clearTimeout(autoNextTimer);
+                    loadNewQuestion();
+                    isProcessing = false;
+                } else if (!isProcessing && currentQuestionObj) {
+                    // لا توجد إجابة بعد، نقوم بإرسال الإجابة
+                    document.getElementById('submitAnswer').click();
+                }
             }
         });
     }
@@ -1177,13 +1393,27 @@ async function init() {
     window.addEventListener('click', (e) => {
         if (e.target === modal) modal.style.display = 'none';
     });
-    // ربط أزرار الحذف الجماعي
+
+    // ========== أدوات الحذف حسب المجموعة ==========
     const deleteGroupBtn = document.getElementById('deleteGroupBtn');
     const deleteSubgroupBtn = document.getElementById('deleteSubgroupBtn');
     if (deleteGroupBtn) deleteGroupBtn.addEventListener('click', deleteGroup);
     if (deleteSubgroupBtn) deleteSubgroupBtn.addEventListener('click', deleteSubgroup);
-    // تهيئة قوائم الحذف
     populateDeleteGroupFilter();
+
+    // ========== قائمة المستخدم (تعديل الاسم، الترتيب) ==========
+    initUserMenu();
+
+    // ========== زر المزامنة اليدوي ==========
+    const manualSyncBtn = document.getElementById('manualSyncBtn');
+    if (manualSyncBtn) manualSyncBtn.addEventListener('click', syncWithFirebaseManual);
+    startAutoSync(5);  // مزامنة تلقائية كل 5 دقائق
+
+    // ========== إخفاء زر Logout للضيوف ==========
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn && currentUser && currentUser.isGuest) {
+        logoutBtn.style.display = 'none';
+    }
 }
 
 // 启动应用
