@@ -16,7 +16,178 @@ let currentUser = null;        // Stores current user object from localStorage
 let isFirebaseUser = false;    // True if logged in (not guest)
 let isProcessing = false;   
 let deleteGroupSelect, deleteSubgroupSelect;  // سيتم تعيينهما لاحقاً
-let lastAnsweredId = null;     
+let lastAnsweredId = null;   
+//  نظام شاشة الانتظار =
+let waitingOverlay = null;
+let canvas = null;
+let ctx = null;
+let animationFrameId = null;
+let overlayActive = false;
+
+// دوال الرسم (مختلفة كل مرة)
+function getRandomPastel() {
+    return `hsl(${Math.random() * 360}, 70%, 65%)`;
+}
+
+function drawCat(ctx, w, h, frame) {
+    const t = Date.now() / 400;
+    ctx.clearRect(0, 0, w, h);
+    // خلفية
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, `hsl(${frame % 360}, 70%, 75%)`);
+    grad.addColorStop(1, `hsl(${(frame + 60) % 360}, 70%, 65%)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+    // رسم وجه قط
+    ctx.fillStyle = "#F4C2A2";
+    ctx.beginPath();
+    ctx.ellipse(w/2, h/2, 50, 55, 0, 0, Math.PI*2);
+    ctx.fill();
+    // أذنان
+    ctx.fillStyle = "#C78A5E";
+    ctx.beginPath();
+    ctx.moveTo(w/2-45, h/2-45);
+    ctx.lineTo(w/2-20, h/2-25);
+    ctx.lineTo(w/2-35, h/2-60);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(w/2+45, h/2-45);
+    ctx.lineTo(w/2+20, h/2-25);
+    ctx.lineTo(w/2+35, h/2-60);
+    ctx.fill();
+    // عيون
+    ctx.fillStyle = "#2F2E41";
+    ctx.beginPath();
+    ctx.arc(w/2-20, h/2-10, 6, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(w/2+20, h/2-10, 6, 0, Math.PI*2);
+    ctx.fill();
+    // أنف
+    ctx.fillStyle = "#FF9999";
+    ctx.beginPath();
+    ctx.ellipse(w/2, h/2+5, 7, 5, 0, 0, Math.PI*2);
+    ctx.fill();
+    // شوارب
+    ctx.beginPath();
+    ctx.moveTo(w/2-35, h/2);
+    ctx.lineTo(w/2-10, h/2+2);
+    ctx.moveTo(w/2+35, h/2);
+    ctx.lineTo(w/2+10, h/2+2);
+    ctx.stroke();
+    // قبعة عالية
+    ctx.fillStyle = "#5A3E2B";
+    ctx.fillRect(w/2-40, h/2-75, 80, 35);
+    ctx.fillStyle = "#FFD966";
+    ctx.fillRect(w/2-30, h/2-70, 60, 15);
+}
+
+function drawParticles(ctx, w, h, frame) {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#1E2A38";
+    ctx.fillRect(0, 0, w, h);
+    for (let i = 0; i < 40; i++) {
+        const angle = frame * 0.05 + i;
+        const rad = 50 + Math.sin(angle) * 20;
+        const x = w/2 + Math.cos(angle) * rad;
+        const y = h/2 + Math.sin(angle * 1.5) * rad * 0.7;
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI*2);
+        ctx.fillStyle = `hsl(${(frame + i * 20) % 360}, 80%, 65%)`;
+        ctx.fill();
+    }
+    ctx.font = `bold 26px "Segoe UI Emoji"`;
+    ctx.fillStyle = "white";
+    ctx.fillText("✨", w-40, h-30);
+    ctx.fillText("📚", 20, 50);
+}
+
+function drawWavy(ctx, w, h, frame) {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#2C3E50";
+    ctx.fillRect(0, 0, w, h);
+    const t = frame * 0.03;
+    for (let i = 0; i < 5; i++) {
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 15) {
+            const y = h/2 + Math.sin(x * 0.03 + t + i) * 15 + Math.cos(x * 0.02 + t*1.2) * 10;
+            ctx.lineTo(x, y);
+        }
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.fillStyle = `hsla(${i * 60 + t * 50}, 70%, 60%, 0.6)`;
+        ctx.fill();
+    }
+    ctx.fillStyle = "#FFD966";
+    ctx.font = `24px "Segoe UI Emoji"`;
+    ctx.fillText("⭐", w*0.2, h*0.8);
+    ctx.fillText("📖", w*0.7, h*0.3);
+}
+
+let activeRender = null;
+let frameCount = 0;
+
+function startWaitingAnimation() {
+    if (!canvas || !ctx) return;
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    // اختيار نوع الرسم عشوائياً
+    const renderType = Math.floor(Math.random() * 3); // 0 قط, 1 جسيمات, 2 موجات
+    frameCount = 0;
+    function animate() {
+        if (!overlayActive) return;
+        frameCount++;
+        if (renderType === 0) drawCat(ctx, 200, 200, frameCount);
+        else if (renderType === 1) drawParticles(ctx, 200, 200, frameCount);
+        else drawWavy(ctx, 200, 200, frameCount);
+        animationFrameId = requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+function showWaitingOverlay() {
+    waitingOverlay = document.getElementById('waitingOverlay');
+    if (!waitingOverlay) return;
+    overlayActive = true;
+    waitingOverlay.style.display = 'flex';
+    waitingOverlay.style.opacity = '1';
+    canvas = document.getElementById('funCanvas');
+    if (canvas) ctx = canvas.getContext('2d');
+    // حقيقة عشوائية للعرض
+    const facts = [
+        '🧠 Spaced repetition doubles your memory power!',
+        '📖 Every new word opens a door to a new world.',
+        '⭐ You are joining over 1000 active learners today!',
+        '🎨 Look! Every refresh brings a new surprise animation.',
+        '💪 Consistency beats intensity. Keep going, you are doing great!',
+        '🌍 Language connects hearts across cultures. You are building bridges!',
+        '✨ Small daily progress = huge results over time.',
+        '🎯 Every correct answer rewires your brain for success.',
+        '📚 Learning is a journey, not a race. Enjoy every step!',
+        '🧘 Breathe, focus, and get ready to master new knowledge.',
+        '🔥 You are training your brain to become stronger every day.',
+        '💡 Fun fact: Your brain grows new connections when you learn.',
+        '🎉 Get ready for a fresh set of questions just for you!',
+        '🚀 Knowledge is the only treasure that grows when you share it.',
+        '🏆 Every effort counts. You are closer to fluency than yesterday!'
+    ];
+    const factDiv = document.getElementById('funFactText');
+    if (factDiv) factDiv.innerText = facts[Math.floor(Math.random() * facts.length)];
+    startWaitingAnimation();
+}
+
+function hideWaitingOverlay() {
+    overlayActive = false;
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
+    if (waitingOverlay) {
+        waitingOverlay.style.opacity = '0';
+        setTimeout(() => {
+            if (waitingOverlay) waitingOverlay.style.display = 'none';
+        }, 300);
+    }
+}  
 
 // إدارة المستخدم 
 function loadCurrentUser() {
@@ -1230,6 +1401,7 @@ function startAutoSync(intervalMinutes = 5) {
 
 // ---------- 初始化 & 事件绑定 ----------
 async function init() {
+    showWaitingOverlay();
     // أولاً: تحميل المستخدم الحالي
     if (!loadCurrentUser()) return;
     
@@ -1414,6 +1586,7 @@ async function init() {
     if (logoutBtn && currentUser && currentUser.isGuest) {
         logoutBtn.style.display = 'none';
     }
+    hideWaitingOverlay();
 }
 
 // 启动应用
