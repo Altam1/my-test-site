@@ -1,5 +1,5 @@
 // app.js - DEFAULT_QUESTIONS_RAW
-// Firebase imports for cloud sync (added without breaking existing features)
+// Firebase imports。。。。
 import { auth, db, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, updateDoc, doc, setDoc, getDoc, collection, getDocs, query, where, arrayUnion, arrayRemove } from './firebase-config.js';
 // ---------- 全局变量 ----------
 let allQuestions = [];
@@ -17,14 +17,13 @@ let isFirebaseUser = false;    // True if logged in (not guest)
 let isProcessing = false;   
 let deleteGroupSelect, deleteSubgroupSelect;  // سيتم تعيينهما لاحقاً
 let lastAnsweredId = null;   
-//  نظام شاشة الانتظار =
+
 let waitingOverlay = null;
 let canvas = null;
 let ctx = null;
 let animationFrameId = null;
 let overlayActive = false;
 
-// دوال الرسم (مختلفة كل مرة)
 function getRandomPastel() {
     return `hsl(${Math.random() * 360}, 70%, 65%)`;
 }
@@ -32,7 +31,6 @@ function getRandomPastel() {
 function drawCat(ctx, w, h, frame) {
     const t = Date.now() / 400;
     ctx.clearRect(0, 0, w, h);
-    // خلفية
     const grad = ctx.createLinearGradient(0, 0, w, h);
     grad.addColorStop(0, `hsl(${frame % 360}, 70%, 75%)`);
     grad.addColorStop(1, `hsl(${(frame + 60) % 360}, 70%, 65%)`);
@@ -109,7 +107,7 @@ function drawWavy(ctx, w, h, frame) {
     const t = frame * 0.03;
     for (let i = 0; i < 5; i++) {
         ctx.beginPath();
-        for (let x = 0; x <= w; x += 15) {
+        for (let x = 0; x <= w; x += 10) {
             const y = h/2 + Math.sin(x * 0.03 + t + i) * 15 + Math.cos(x * 0.02 + t*1.2) * 10;
             ctx.lineTo(x, y);
         }
