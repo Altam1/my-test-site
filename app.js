@@ -1134,7 +1134,7 @@ document.getElementById('showRankingBtn')?.addEventListener('click', async () =>
         console.log("Number of users found:", snapshot.size);
         
         if (snapshot.empty) {
-            alert("will be available in the next update");
+            alert("Update the website, try again later!");
             dropdown.style.display = 'none';
             return;
         }
