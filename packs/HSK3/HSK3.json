@@ -1,603 +1,600 @@
-[
-  ["阿姨", ["aunt", "عمة", "خالة"]],
-  ["啊", ["ah", "آه"]],
-  ["矮", ["short", "قصير"]],
-  ["爱", ["love", "حب"]],
-  ["爱好", ["hobby", "هواية"]],
-  ["安静", ["quiet", "هادئ"]],
-  ["八", ["eight", "ثمانية"]],
-  ["把", ["hold", "يمسك", "بواسطة"]],
-  ["爸爸", ["dad", "أب"]],
-  ["吧", ["(modal particle)", "حرف استفهام"]],
-  ["白", ["white", "أبيض"]],
-  ["百", ["hundred", "مئة"]],
-  ["班", ["class", "صف", "فصل"]],
-  ["搬", ["move", "ينقل", "يزيح"]],
-  ["半", ["half", "نصف"]],
-  ["办法", ["way", "طريقة"]],
-  ["办公室", ["office", "مكتب"]],
-  ["帮忙", ["help", "مساعدة"]],
-  ["帮助", ["help", "مساعدة"]],
-  ["包", ["package", "حزمة", "كيس"]],
-  ["饱", ["full", "شبعان"]],
-  ["报纸", ["newspaper", "جريدة"]],
-  ["杯子", ["cup", "glass", "كأس"]],
-  ["北方", ["north", "شمال"]],
-  ["北京", ["Beijing", "بكين"]],
-  ["被", ["by", "بواسطة"]],
-  ["本", ["book", "كتاب"]],
-  ["鼻子", ["nose", "أنف"]],
-  ["比", ["than", "مقارنة"]],
-  ["比较", ["compare", "مقارنة"]],
-  ["比赛", ["match", "game", "مباراة"]],
-  ["必须", ["must", "يجب"]],
-  ["变化", ["change", "تغيير"]],
-  ["表示", ["express", "يعبر"]],
-  ["表演", ["perform", "يؤدي"]],
-  ["别", ["don't", "لا"]],
-  ["别人", ["others", "آخرون"]],
-  ["宾馆", ["hotel", "فندق"]],
-  ["冰箱", ["refrigerator", "ثلاجة"]],
-  ["不客气", ["you're welcome", "على الرحب"]],
-  ["不", ["no", "لا"]],
-  ["才", ["just", "فقط"]],
-  ["菜", ["dish", "food", "طبق"]],
-  ["菜单", ["menu", "قائمة طعام"]],
-  ["参加", ["participate", "يشارك"]],
-  ["草", ["grass", "عشب"]],
-  ["层", ["floor", "layer", "طابق"]],
-  ["茶", ["tea", "شاي"]],
-  ["差", ["difference", "فرق"]],
-  ["长", ["long", "طويل"]],
-  ["唱歌", ["sing", "يغني"]],
-  ["超市", ["supermarket", "سوبرماركت"]],
-  ["衬衫", ["shirt", "قميص"]],
-  ["成绩", ["grade", "result", "نتيجة"]],
-  ["城市", ["city", "مدينة"]],
-  ["吃", ["eat", "يأكل"]],
-  ["迟到", ["late", "متأخر"]],
-  ["出", ["go out", "يخرج"]],
-  ["出现", ["appear", "يظهر"]],
-  ["出租车", ["taxi", "تاكسي"]],
-  ["厨房", ["kitchen", "مطبخ"]],
-  ["除了", ["except", "باستثناء"]],
-  ["穿", ["wear", "يرتدي"]],
-  ["船", ["boat", "ship", "سفينة"]],
-  ["春", ["spring", "ربيع"]],
-  ["词语", ["word", "term", "كلمة"]],
-  ["次", ["time", "مرة"]],
-  ["聪明", ["clever", "ذكي"]],
-  ["从", ["from", "من"]],
-  ["错", ["wrong", "خطأ"]],
-  ["打电话", ["call", "يتصل"]],
-  ["打篮球", ["play basketball", "يلعب كرة سلة"]],
-  ["打扫", ["clean", "ينظف"]],
-  ["打算", ["plan", "يخطط"]],
-  ["大", ["big", "كبير"]],
-  ["大家", ["everyone", "الجميع"]],
-  ["带", ["bring", "carry", "يحضر"]],
-  ["担心", ["worry", "يقلق"]],
-  ["蛋糕", ["cake", "كعكة"]],
-  ["但是", ["but", "لكن"]],
-  ["当然", ["of course", "بالطبع"]],
-  ["到", ["arrive", "يصل"]],
-  ["地", ["(adverbial particle)", "ظرف"]],
-  ["的", ["(possessive particle)", "حرف ملكية"]],
-  ["得", ["(degree particle)", "حرف درجة"]],
-  ["灯", ["lamp", "light", "مصباح"]],
-  ["等", ["wait", "ينتظر"]],
-  ["低", ["low", "منخفض"]],
-  ["弟弟", ["younger brother", "أخ صغير"]],
-  ["地方", ["place", "مكان"]],
-  ["地铁", ["subway", "مترو"]],
-  ["地图", ["map", "خريطة"]],
-  ["第一", ["first", "أول"]],
-  ["点", ["point", "dot", "نقطة"]],
-  ["电脑", ["computer", "حاسوب"]],
-  ["电视", ["television", "تلفاز"]],
-  ["电梯", ["elevator", "مصعد"]],
-  ["电影", ["movie", "film", "فيلم"]],
-  ["电子邮件", ["email", "بريد إلكتروني"]],
-  ["东", ["east", "شرق"]],
-  ["东西", ["thing", "شيء"]],
-  ["冬", ["winter", "شتاء"]],
-  ["懂", ["understand", "يفهم"]],
-  ["动物", ["animal", "حيوان"]],
-  ["都", ["all", "جميع"]],
-  ["读", ["read", "يقرأ"]],
-  ["短", ["short", "قصير"]],
-  ["段", ["paragraph", "part", "جزء"]],
-  ["锻炼", ["exercise", "تمرين"]],
-  ["对", ["correct", "yes", "صحيح"]],
-  ["对不起", ["sorry", "آسف"]],
-  ["多", ["many", "much", "كثير"]],
-  ["多么", ["how", "what", "كم"]],
-  ["多少", ["how many", "كم عدد"]],
-  ["饿", ["hungry", "جائع"]],
-  ["而且", ["moreover", "وأيضاً"]],
-  ["儿子", ["son", "ابن"]],
-  ["耳朵", ["ear", "أذن"]],
-  ["二", ["two", "اثنان"]],
-  ["发烧", ["have fever", "حمى"]],
-  ["发现", ["discover", "يكتشف"]],
-  ["饭馆", ["restaurant", "مطعم"]],
-  ["方便", ["convenient", "مريح"]],
-  ["房间", ["room", "غرفة"]],
-  ["放", ["put", "يضع"]],
-  ["放心", ["relax", "don't worry", "لا تقلق"]],
-  ["非常", ["very", "جداً"]],
-  ["飞机", ["airplane", "طائرة"]],
-  ["分", ["minute", "point", "دقيقة"]],
-  ["分钟", ["minute", "دقيقة"]],
-  ["服务员", ["waiter", "waiter", "نادل"]],
-  ["附近", ["nearby", "قريب"]],
-  ["复习", ["review", "مراجعة"]],
-  ["干净", ["clean", "نظيف"]],
-  ["敢", ["dare", "يجترئ"]],
-  ["感冒", ["cold", "زكام"]],
-  ["刚才", ["just now", "قبل قليل"]],
-  ["高", ["high", "tall", "مرتفع"]],
-  ["高兴", ["happy", "سعيد"]],
-  ["告诉", ["tell", "يخبر"]],
-  ["哥哥", ["older brother", "أخ أكبر"]],
-  ["个", ["(measure word)", "أداة تعداد"]],
-  ["给", ["give", "يعطي"]],
-  ["跟", ["with", "مع"]],
-  ["根据", ["according to", "وفقاً لـ"]],
-  ["更", ["more", "أكثر"]],
-  ["公共汽车", ["bus", "حافلة"]],
-  ["公斤", ["kilogram", "كيلوغرام"]],
-  ["公司", ["company", "شركة"]],
-  ["公园", ["park", "حديقة"]],
-  ["工作", ["work", "عمل"]],
-  ["狗", ["dog", "كلب"]],
-  ["故事", ["story", "قصة"]],
-  ["刮风", ["windy", "عاصف"]],
-  ["关", ["close", "يغلق"]],
-  ["关系", ["relation", "علاقة"]],
-  ["关心", ["care", "يهتم"]],
-  ["关于", ["about", "عن"]],
-  ["贵", ["expensive", "غالي"]],
-  ["国家", ["country", "دولة"]],
-  ["果汁", ["juice", "عصير"]],
-  ["过去", ["past", "ماضي"]],
-  ["过", ["(past experience)", "سبق"]],
-  ["还", ["still", "still", "لا يزال"]],
-  ["还是", ["or", "still", "أو"]],
-  ["孩子", ["child", "طفل"]],
-  ["害怕", ["afraid", "خائف"]],
-  ["汉语", ["Chinese language", "لغة صينية"]],
-  ["好", ["good", "جيد"]],
-  ["好吃", ["delicious", "لذيذ"]],
-  ["号", ["number", "رقم"]],
-  ["喝", ["drink", "يشرب"]],
-  ["和", ["and", "و"]],
-  ["河", ["river", "نهر"]],
-  ["黑", ["black", "أسود"]],
-  ["黑板", ["blackboard", "سبورة"]],
-  ["很", ["very", "جداً"]],
-  ["红", ["red", "أحمر"]],
-  ["后面", ["behind", "خلف"]],
-  ["护照", ["passport", "جواز سفر"]],
-  ["花", ["flower", "زهرة"]],
-  ["花园", ["garden", "حديقة"]],
-  ["画", ["paint", "draw", "يرسم"]],
-  ["坏", ["bad", "سيء"]],
-  ["欢迎", ["welcome", "مرحباً"]],
-  ["还", ["return", "يعيد"]],
-  ["环境", ["environment", "بيئة"]],
-  ["换", ["change", "exchange", "يغير"]],
-  ["黄", ["yellow", "أصفر"]],
-  ["回", ["return", "يعود"]],
-  ["回答", ["answer", "يجيب"]],
-  ["会", ["can", "know", "يستطيع"]],
-  ["会议", ["meeting", "اجتماع"]],
-  ["火车站", ["train station", "محطة قطار"]],
-  ["或者", ["or", "أو"]],
-  ["机场", ["airport", "مطار"]],
-  ["鸡蛋", ["egg", "بيضة"]],
-  ["几乎", ["almost", "تقريباً"]],
-  ["机会", ["opportunity", "فرصة"]],
-  ["极", ["extremely", "جداً"]],
-  ["几", ["several", "كم"]],
-  ["记得", ["remember", "يتذكر"]],
-  ["季节", ["season", "فصل"]],
-  ["家", ["home", "family", "بيت"]],
-  ["检查", ["inspect", "examine", "يفحص"]],
-  ["简单", ["simple", "بسيط"]],
-  ["件", ["(measure word)", "أداة"]],
-  ["健康", ["healthy", "صحي"]],
-  ["见面", ["meet", "يقابل"]],
-  ["讲", ["speak", "tell", "يتحدث"]],
-  ["教", ["teach", "يعلم"]],
-  ["角", ["corner", "angle", "زاوية"]],
-  ["脚", ["foot", "قدم"]],
-  ["叫", ["call", "ينادي"]],
-  ["教室", ["classroom", "فصل دراسي"]],
-  ["接", ["receive", "meet", "يستقبل"]],
-  ["街道", ["street", "شارع"]],
-  ["结婚", ["marry", "يتزوج"]],
-  ["结束", ["end", "finish", "ينتهي"]],
-  ["节目", ["program", "show", "برنامج"]],
-  ["节日", ["festival", "عيد"]],
-  ["姐姐", ["older sister", "أخت كبرى"]],
-  ["解决", ["solve", "يحل"]],
-  ["借", ["borrow", "lend", "يستعير"]],
-  ["介绍", ["introduce", "يقدم"]],
-  ["今天", ["today", "اليوم"]],
-  ["进", ["enter", "يدخل"]],
-  ["近", ["near", "قريب"]],
-  ["经常", ["often", "غالباً"]],
-  ["经过", ["pass", "after", "يمر"]],
-  ["经理", ["manager", "مدير"]],
-  ["九", ["nine", "تسعة"]],
-  ["久", ["long time", "طويلاً"]],
-  ["旧", ["old", "used", "قديم"]],
-  ["就", ["then", "just", "فقط"]],
-  ["举行", ["hold", "conduct", "يعقد"]],
-  ["句子", ["sentence", "جملة"]],
-  ["觉得", ["feel", "think", "يشعر"]],
-  ["决定", ["decide", "determine", "يقرر"]],
-  ["咖啡", ["coffee", "قهوة"]],
-  ["开", ["open", "start", "يفتح"]],
-  ["开始", ["start", "begin", "يبدأ"]],
-  ["看", ["see", "look", "ينظر"]],
-  ["看见", ["see", "يرى"]],
-  ["考试", ["exam", "test", "امتحان"]],
-  ["渴", ["thirsty", "عطشان"]],
-  ["可爱", ["cute", "lovely", "لطيف"]],
-  ["可能", ["possible", "maybe", "ممكن"]],
-  ["可以", ["can", "may", "يستطيع"]],
-  ["刻", ["moment", "carve", "لحظة"]],
-  ["课", ["lesson", "class", "درس"]],
-  ["客人", ["guest", "customer", "ضيف"]],
-  ["空调", ["air conditioner", "مكيف"]],
-  ["口", ["mouth", "فم"]],
-  ["哭", ["cry", "يبكي"]],
-  ["裤子", ["pants", "trousers", "بنطلون"]],
-  ["块", ["piece", "chunk", "قطعة"]],
-  ["快", ["fast", "quick", "سريع"]],
-  ["快乐", ["happy", "joyful", "سعيد"]],
-  ["筷子", ["chopsticks", "عيدان طعام"]],
-  ["来", ["come", "يأتي"]],
-  ["蓝", ["blue", "أزرق"]],
-  ["老", ["old", "كبير سن"]],
-  ["老师", ["teacher", "معلم"]],
-  ["了", ["(past particle)", "قد"]],
-  ["累", ["tired", "متعب"]],
-  ["冷", ["cold", "بارد"]],
-  ["离", ["leave", "from", "يغادر"]],
-  ["离开", ["leave", "depart", "يغادر"]],
-  ["里", ["inside", "داخل"]],
-  ["礼物", ["gift", "present", "هدية"]],
-  ["历史", ["history", "تاريخ"]],
-  ["脸", ["face", "وجه"]],
-  ["练习", ["practice", "تمرين"]],
-  ["两", ["two", "اثنان"]],
-  ["辆", ["(measure for vehicles)", "أداة للسيارات"]],
-  ["了解", ["understand", "comprehend", "يفهم"]],
-  ["邻居", ["neighbor", "جار"]],
-  ["零", ["zero", "صفر"]],
-  ["六", ["six", "ستة"]],
-  ["楼", ["building", "floor", "طابق"]],
-  ["路", ["road", "طريق"]],
-  ["旅游", ["travel", "tourism", "سفر"]],
-  ["绿", ["green", "أخضر"]],
-  ["妈妈", ["mom", "أم"]],
-  ["马", ["horse", "حصان"]],
-  ["马上", ["immediately", "فوراً"]],
-  ["吗", ["(question particle)", "هل"]],
-  ["买", ["buy", "يشتري"]],
-  ["卖", ["sell", "يبيع"]],
-  ["满意", ["satisfied", "راض"]],
-  ["慢", ["slow", "بطيء"]],
-  ["忙", ["busy", "مشغول"]],
-  ["猫", ["cat", "قطة"]],
-  ["帽子", ["hat", "cap", "قبعة"]],
-  ["没", ["not", "لا"]],
-  ["没关系", ["never mind", "لا مشكلة"]],
-  ["每", ["every", "كل"]],
-  ["妹妹", ["younger sister", "أخت صغرى"]],
-  ["门", ["door", "باب"]],
-  ["米", ["rice", "meter", "أرز"]],
-  ["米饭", ["cooked rice", "رز مطبوخ"]],
-  ["面包", ["bread", "خبز"]],
-  ["面条", ["noodles", "نودلز"]],
-  ["明白", ["understand", "clear", "يفهم"]],
-  ["明天", ["tomorrow", "غداً"]],
-  ["名字", ["name", "اسم"]],
-  ["拿", ["take", "hold", "يأخذ"]],
-  ["哪", ["which", "أي"]],
-  ["那", ["that", "ذاك"]],
-  ["奶奶", ["grandma", "جدة"]],
-  ["南", ["south", "جنوب"]],
-  ["男人", ["man", "رجل"]],
-  ["难", ["difficult", "hard", "صعب"]],
-  ["难过", ["sad", "حزين"]],
-  ["呢", ["(question particle)", "هل"]],
-  ["能", ["can", "able", "يستطيع"]],
-  ["你", ["you", "أنت"]],
-  ["年", ["year", "سنة"]],
-  ["年级", ["grade", "year", "صف دراسي"]],
-  ["年轻", ["young", "شاب"]],
-  ["鸟", ["bird", "طائر"]],
-  ["您", ["you (polite)", "حضرتك"]],
-  ["牛奶", ["milk", "حليب"]],
-  ["努力", ["strive", "work hard", "يجتهد"]],
-  ["女儿", ["daughter", "ابنة"]],
-  ["女人", ["woman", "امرأة"]],
-  ["爬山", ["climb mountain", "يتسلق جبلاً"]],
-  ["盘子", ["plate", "dish", "طبق"]],
-  ["旁边", ["side", "nearby", "جانب"]],
-  ["胖", ["fat", "سمين"]],
-  ["跑步", ["run", "jog", "يركض"]],
-  ["朋友", ["friend", "صديق"]],
-  ["啤酒", ["beer", "بيرة"]],
-  ["便宜", ["cheap", "رخيص"]],
-  ["票", ["ticket", "تذكرة"]],
-  ["漂亮", ["beautiful", "جميل"]],
-  ["苹果", ["apple", "تفاح"]],
-  ["葡萄", ["grape", "عنب"]],
-  ["普通话", ["Mandarin", "الماندرين"]],
-  ["七", ["seven", "سبعة"]],
-  ["妻子", ["wife", "زوجة"]],
-  ["其实", ["actually", "في الحقيقة"]],
-  ["其他", ["other", "آخر"]],
-  ["骑", ["ride", "يركب"]],
-  ["奇怪", ["strange", "غريب"]],
-  ["起床", ["get up", "ينهض"]],
-  ["千", ["thousand", "ألف"]],
-  ["铅笔", ["pencil", "قلم رصاص"]],
-  ["钱", ["money", "مال"]],
-  ["前面", ["front", "أمام"]],
-  ["清楚", ["clear", "واضح"]],
-  ["晴", ["sunny", "مشمس"]],
-  ["请", ["please", "من فضلك"]],
-  ["秋", ["autumn", "خريف"]],
-  ["去", ["go", "يذهب"]],
-  ["去年", ["last year", "العام الماضي"]],
-  ["裙子", ["skirt", "تنورة"]],
-  ["然后", ["then", "after", "ثم"]],
-  ["让", ["let", "allow", "يسمح"]],
-  ["热", ["hot", "حار"]],
-  ["热情", ["enthusiasm", "حماس"]],
-  ["人", ["person", "people", "شخص"]],
-  ["认识", ["know", "recognize", "يعرف"]],
-  ["认为", ["think", "believe", "يظن"]],
-  ["认真", ["serious", "earnest", "جاد"]],
-  ["日", ["day", "sun", "يوم"]],
-  ["容易", ["easy", "سهل"]],
-  ["如果", ["if", "إذا"]],
-  ["三", ["three", "ثلاثة"]],
-  ["伞", ["umbrella", "مظلة"]],
-  ["商店", ["shop", "store", "متجر"]],
-  ["上", ["above", "up", "فوق"]],
-  ["上班", ["go to work", "يذهب للعمل"]],
-  ["上网", ["surf internet", "يتصفح الإنترنت"]],
-  ["上午", ["morning", "صباح"]],
-  ["少", ["few", "little", "قليل"]],
-  ["谁", ["who", "من"]],
-  ["身体", ["body", "جسم"]],
-  ["什么", ["what", "ماذا"]],
-  ["生病", ["get sick", "يمرض"]],
-  ["生气", ["get angry", "يغضب"]],
-  ["生日", ["birthday", "عيد ميلاد"]],
-  ["声音", ["voice", "sound", "صوت"]],
-  ["十", ["ten", "عشرة"]],
-  ["时候", ["time", "moment", "وقت"]],
-  ["时间", ["time", "زمن"]],
-  ["使", ["make", "use", "يجعل"]],
-  ["是", ["be", "yes", "يكون"]],
-  ["世界", ["world", "عالم"]],
-  ["事情", ["thing", "matter", "شيء"]],
-  ["手表", ["watch", "ساعة يد"]],
-  ["手机", ["mobile phone", "هاتف محمول"]],
-  ["瘦", ["thin", "نحيف"]],
-  ["书", ["book", "كتاب"]],
-  ["舒服", ["comfortable", "مريح"]],
-  ["叔叔", ["uncle", "عم"]],
-  ["树", ["tree", "شجرة"]],
-  ["数学", ["mathematics", "رياضيات"]],
-  ["刷牙", ["brush teeth", "يفرك أسنانه"]],
-  ["双", ["double", "pair", "زوج"]],
-  ["水", ["water", "ماء"]],
-  ["水果", ["fruit", "فاكهة"]],
-  ["水平", ["level", "standard", "مستوى"]],
-  ["睡觉", ["sleep", "ينام"]],
-  ["说话", ["speak", "talk", "يتحدث"]],
-  ["司机", ["driver", "سائق"]],
-  ["四", ["four", "أربعة"]],
-  ["送", ["send", "give", "يرسل"]],
-  ["虽然", ["although", "برغم"]],
-  ["岁", ["year old", "سنة العمر"]],
-  ["所以", ["therefore", "لذلك"]],
-  ["他", ["he", "هو"]],
-  ["她", ["she", "هي"]],
-  ["它", ["it", "هو/هي (لغير العاقل)"]],
-  ["太", ["too", "very", "جداً"]],
-  ["太阳", ["sun", "شمس"]],
-  ["糖", ["sugar", "candy", "سكر"]],
-  ["特别", ["special", "especially", "خاص"]],
-  ["疼", ["hurt", "pain", "يؤلم"]],
-  ["踢足球", ["play football", "يلعب كرة قدم"]],
-  ["题", ["question", "topic", "سؤال"]],
-  ["提高", ["improve", "raise", "يحسن"]],
-  ["体育", ["sports", "رياضة"]],
-  ["天气", ["weather", "طقس"]],
-  ["甜", ["sweet", "حلو"]],
-  ["条", ["(measure for long objects)", "أداة"]],
-  ["跳舞", ["dance", "يرقص"]],
-  ["听", ["listen", "hear", "يسمع"]],
-  ["同事", ["colleague", "زميل"]],
-  ["同学", ["classmate", "زميل دراسة"]],
-  ["同意", ["agree", "يوافق"]],
-  ["头发", ["hair", "شعر"]],
-  ["突然", ["suddenly", "فجأة"]],
-  ["图书馆", ["library", "مكتبة"]],
-  ["腿", ["leg", "رجل"]],
-  ["外", ["outside", "foreign", "خارج"]],
-  ["完", ["finish", "complete", "ينتهي"]],
-  ["完成", ["complete", "accomplish", "يكمل"]],
-  ["玩", ["play", "يلعب"]],
-  ["碗", ["bowl", "وعاء"]],
-  ["晚上", ["evening", "night", "مساء"]],
-  ["万", ["ten thousand", "عشرة آلاف"]],
-  ["忘记", ["forget", "ينسى"]],
-  ["喂", ["hello (phone)", "ألو"]],
-  ["为", ["for", "for the sake of", "لـ"]],
-  ["为了", ["in order to", "لكي"]],
-  ["为什么", ["why", "لماذا"]],
-  ["位", ["(measure for people)", "أداة للأشخاص"]],
-  ["文化", ["culture", "ثقافة"]],
-  ["问", ["ask", "يسأل"]],
-  ["问题", ["question", "problem", "مشكلة"]],
-  ["我", ["I", "me", "أنا"]],
-  ["我们", ["we", "us", "نحن"]],
-  ["五", ["five", "خمسة"]],
-  ["西", ["west", "غرب"]],
-  ["西瓜", ["watermelon", "بطيخ"]],
-  ["希望", ["hope", "يأمل"]],
-  ["习惯", ["habit", "accustomed", "عادة"]],
-  ["洗", ["wash", "يغسل"]],
-  ["洗手间", ["restroom", "حمام"]],
-  ["洗澡", ["take shower", "يستحم"]],
-  ["喜欢", ["like", "enjoy", "يحب"]],
-  ["下", ["down", "below", "تحت"]],
-  ["下午", ["afternoon", "بعد الظهر"]],
-  ["下雨", ["rain", "يمطر"]],
-  ["夏", ["summer", "صيف"]],
-  ["先", ["first", "before", "أولاً"]],
-  ["先生", ["Mr.", "sir", "سيد"]],
-  ["现在", ["now", "الآن"]],
-  ["香蕉", ["banana", "موز"]],
-  ["相同", ["same", "identical", "نفس"]],
-  ["相信", ["believe", "يصدق"]],
-  ["想", ["think", "want", "يفكر"]],
-  ["向", ["towards", "نحو"]],
-  ["像", ["like", "resemble", "مثل"]],
-  ["小", ["small", "little", "صغير"]],
-  ["小姐", ["miss", "young lady", "آنسة"]],
-  ["小时", ["hour", "ساعة"]],
-  ["小心", ["careful", "be careful", "حذر"]],
-  ["笑", ["laugh", "smile", "يضحك"]],
-  ["校长", ["principal", "headmaster", "مدير مدرسة"]],
-  ["些", ["some", "a few", "بعض"]],
-  ["鞋", ["shoe", "حذاء"]],
-  ["写", ["write", "يكتب"]],
-  ["谢谢", ["thank you", "شكراً"]],
-  ["新", ["new", "جديد"]],
-  ["新闻", ["news", "أخبار"]],
-  ["新鲜", ["fresh", "طازج"]],
-  ["信", ["letter", "trust", "رسالة"]],
-  ["星期", ["week", "أسبوع"]],
-  ["行李箱", ["suitcase", "trunk", "حقيبة سفر"]],
-  ["姓", ["surname", "family name", "لقب"]],
-  ["兴趣", ["interest", "hobby", "اهتمام"]],
-  ["熊猫", ["panda", "باندا"]],
-  ["休息", ["rest", "يستريح"]],
-  ["需要", ["need", "require", "يحتاج"]],
-  ["选择", ["choose", "select", "يختار"]],
-  ["学生", ["student", "طالب"]],
-  ["学习", ["study", "learn", "يدرس"]],
-  ["学校", ["school", "مدرسة"]],
-  ["雪", ["snow", "ثلج"]],
-  ["颜色", ["color", "لون"]],
-  ["眼镜", ["glasses", "نظارات"]],
-  ["眼睛", ["eye", "عين"]],
-  ["羊肉", ["mutton", "لحم خروف"]],
-  ["要求", ["request", "demand", "يطلب"]],
-  ["药", ["medicine", "drug", "دواء"]],
-  ["要", ["want", "need", "يريد"]],
-  ["爷爷", ["grandpa", "جد"]],
-  ["也", ["also", "too", "أيضاً"]],
-  ["一", ["one", "واحد"]],
-  ["衣服", ["clothes", "ملابس"]],
-  ["医生", ["doctor", "طبيب"]],
-  ["医院", ["hospital", "مستشفى"]],
-  ["一定", ["certainly", "surely", "بالتأكيد"]],
-  ["一共", ["altogether", "total", "إجمالاً"]],
-  ["一会儿", ["a while", "moment", "قليلاً"]],
-  ["一样", ["same", "alike", "نفس"]],
-  ["以后", ["later", "after", "بعد"]],
-  ["以前", ["before", "قبل"]],
-  ["以为", ["think", "believe mistakenly", "يظن"]],
-  ["已经", ["already", "قد"]],
-  ["椅子", ["chair", "كرسي"]],
-  ["一般", ["general", "ordinary", "عام"]],
-  ["一边", ["one side", "一边", "جانب"]],
-  ["一起", ["together", "معاً"]],
-  ["一直", ["always", "continuously", "دائماً"]],
-  ["意思", ["meaning", "معنى"]],
-  ["阴", ["overcast", "yin", "غائم"]],
-  ["因为", ["because", "لأن"]],
-  ["音乐", ["music", "موسيقى"]],
-  ["银行", ["bank", "بنك"]],
-  ["应该", ["should", "ought to", "يجب"]],
-  ["影响", ["influence", "affect", "يؤثر"]],
-  ["用", ["use", "يستخدم"]],
-  ["游戏", ["game", "play", "لعبة"]],
-  ["游泳", ["swim", "يسبح"]],
-  ["有", ["have", "exist", "يملك"]],
-  ["有名", ["famous", "مشهور"]],
-  ["又", ["again", "also", "أيضاً"]],
-  ["右边", ["right side", "يمين"]],
-  ["鱼", ["fish", "سمك"]],
-  ["遇到", ["encounter", "meet", "يقابل"]],
-  ["元", ["yuan", "unit", "يوان"]],
-  ["远", ["far", "بعيد"]],
-  ["愿意", ["willing", "ready", "يرغب"]],
-  ["月", ["month", "moon", "شهر"]],
-  ["月亮", ["moon", "قمر"]],
-  ["越", ["more", "the more", "أكثر"]],
-  ["云", ["cloud", "سحاب"]],
-  ["运动", ["sports", "exercise", "رياضة"]],
-  ["在", ["at", "in", "في"]],
-  ["再", ["again", "another", "مرة أخرى"]],
-  ["再见", ["goodbye", "وداعاً"]],
-  ["早上", ["morning", "صباحاً"]],
-  ["怎么", ["how", "كيف"]],
-  ["怎么样", ["how about", "كيف الحال"]],
-  ["站", ["station", "stop", "محطة"]],
-  ["张", ["(measure for flat objects)", "أداة"]],
-  ["长", ["long", "طويل"]],
-  ["丈夫", ["husband", "زوج"]],
-  ["着急", ["worry", "anxious", "قلق"]],
-  ["找", ["look for", "seek", "يبحث"]],
-  ["照顾", ["look after", "care for", "يعتني"]],
-  ["照片", ["photo", "picture", "صورة"]],
-  ["照相机", ["camera", "آلة تصوير"]],
-  ["这", ["this", "هذا"]],
-  ["着", ["(action particle)", "جار"]],
-  ["真", ["real", "true", "حقيقي"]],
-  ["正在", ["in progress", "يجري"]],
-  ["知道", ["know", "يعرف"]],
-  ["只", ["only", "just", "فقط"]],
-  ["中国", ["China", "الصين"]],
-  ["中间", ["middle", "وسط"]],
-  ["中午", ["noon", "ظهراً"]],
-  ["终于", ["finally", "في النهاية"]],
-  ["种", ["kind", "type", "نوع"]],
-  ["重要", ["important", "مهم"]],
-  ["周末", ["weekend", "عطلة نهاية الأسبوع"]],
-  ["主要", ["main", "principal", "رئيسي"]],
-  ["住", ["live", "reside", "يسكن"]],
-  ["祝", ["wish", "express", "يتمنى"]],
-  ["注意", ["pay attention", "careful", "انتبه"]],
-  ["准备", ["prepare", "get ready", "يستعد"]],
-  ["桌子", ["table", "desk", "طاولة"]],
-  ["字", ["character", "word", "حرف"]],
-  ["字典", ["dictionary", "قاموس"]],
-  ["自己", ["self", "oneself", "نفس"]],
-  ["自行车", ["bicycle", "دراجة"]],
-  ["总是", ["always", "دائماً"]],
-  ["走", ["walk", "go", "يمشي"]],
-  ["最", ["most", "best", "most", "أكثر"]],
-  ["最近", ["recently", "lately", "مؤخراً"]],
-  ["昨天", ["yesterday", "أمس"]],
-  ["左边", ["left side", "يسار"]],
-  ["坐", ["sit", "ride", "يجلس"]],
-  ["做", ["do", "make", "يفعل"]],
-  ["作业", ["homework", "واجب"]],
-  ["作用", ["effect", "function", "تأثير"]
-  ]
-]
+"阿姨","aunt,mom's sister,maid","ā yí [n.]","HSK 3 English"
+"啊","ah,oh","ā [part.]","HSK 3 English"
+"矮","short","ǎi [adj.]","HSK 3 English"
+"爱","love","ài [v./n.]","HSK 3 English"
+"爱好","hobby","ài hào [n.]","HSK 3 English"
+"安静","quiet,peaceful","ān jìng [adj.]","HSK 3 English"
+"八","eight","bā [num.]","HSK 3 English"
+"把","hold,handle,measure word for objects with handle","bǎ [v./m./prep.]","HSK 3 English"
+"爸爸","dad,father","bà ba [n.]","HSK 3 English"
+"吧","modal particle (suggestion, doubt, permission)","ba [part.]","HSK 3 English"
+"白","white","bái [adj.]","HSK 3 English"
+"百","hundred","bǎi [num.]","HSK 3 English"
+"班","class,team,shift","bān [n.]","HSK 3 English"
+"搬","move,transport,remove","bān [v.]","HSK 3 English"
+"半","half","bàn [num./n.]","HSK 3 English"
+"办法","way,method,measure","bàn fǎ [n.]","HSK 3 English"
+"办公室","office","bàn gōng shì [n.]","HSK 3 English"
+"帮忙","help,assist,lend a hand","bāng máng [v.]","HSK 3 English"
+"帮助","help,aid,assistance","bāng zhù [v./n.]","HSK 3 English"
+"包","package,bag,wrap","bāo [n./v.]","HSK 3 English"
+"饱","full (from eating)","bǎo [adj.]","HSK 3 English"
+"报纸","newspaper","bào zhǐ [n.]","HSK 3 English"
+"杯子","cup,glass","bēi zi [n.]","HSK 3 English"
+"北方","north, northern region","běi fāng [n.]","HSK 3 English"
+"北京","Beijing","Běi jīng [n.]","HSK 3 English"
+"被","by (passive voice marker)","bèi [prep.]","HSK 3 English"
+"本","book,originally,measure word for books","běn [n./adv./m.]","HSK 3 English"
+"鼻子","nose","bí zi [n.]","HSK 3 English"
+"比","than,compare,ratio","bǐ [prep./v.]","HSK 3 English"
+"比较","compare,comparatively,relatively","bǐ jiào [v./adv.]","HSK 3 English"
+"比赛","match,game,competition","bǐ sài [n./v.]","HSK 3 English"
+"必须","must,have to","bì xū [adv.]","HSK 3 English"
+"变化","change,variation","biàn huà [n./v.]","HSK 3 English"
+"表示","express,show,indicate","biǎo shì [v./n.]","HSK 3 English"
+"表演","perform,act,performance","biǎo yǎn [v./n.]","HSK 3 English"
+"别","don't,other,leave","bié [adv./v.]","HSK 3 English"
+"别人","others,other people","bié rén [pron.]","HSK 3 English"
+"宾馆","hotel,guesthouse","bīn guǎn [n.]","HSK 3 English"
+"冰箱","refrigerator,fridge","bīng xiāng [n.]","HSK 3 English"
+"不客气","you're welcome","bù kè qi [phrase]","HSK 3 English"
+"不","no,not","bù [adv.]","HSK 3 English"
+"才","just,only then,not until","cái [adv.]","HSK 3 English"
+"菜","dish,vegetable,cuisine","cài [n.]","HSK 3 English"
+"菜单","menu","cài dān [n.]","HSK 3 English"
+"参加","participate,join,attend","cān jiā [v.]","HSK 3 English"
+"草","grass","cǎo [n.]","HSK 3 English"
+"层","floor,layer,level","céng [m./n.]","HSK 3 English"
+"茶","tea","chá [n.]","HSK 3 English"
+"差","difference,fall short of,poor","chà [n./v./adj.]","HSK 3 English"
+"长","long","cháng [adj.]","HSK 3 English"
+"唱歌","sing","chàng gē [v.]","HSK 3 English"
+"超市","supermarket","chāo shì [n.]","HSK 3 English"
+"衬衫","shirt","chèn shān [n.]","HSK 3 English"
+"成绩","grade,score,achievement","chéng jì [n.]","HSK 3 English"
+"城市","city","chéng shì [n.]","HSK 3 English"
+"吃","eat","chī [v.]","HSK 3 English"
+"迟到","late,be late","chí dào [v./adj.]","HSK 3 English"
+"出","go out,leave,come out","chū [v.]","HSK 3 English"
+"出现","appear,emerge","chū xiàn [v.]","HSK 3 English"
+"出租车","taxi","chū zū chē [n.]","HSK 3 English"
+"厨房","kitchen","chú fáng [n.]","HSK 3 English"
+"除了","except,besides","chú le [prep.]","HSK 3 English"
+"穿","wear,put on","chuān [v.]","HSK 3 English"
+"船","boat,ship","chuán [n.]","HSK 3 English"
+"春","spring (season)","chūn [n.]","HSK 3 English"
+"词语","word,term,expression","cí yǔ [n.]","HSK 3 English"
+"次","time (of an event),measure word for frequency","cì [m.]","HSK 3 English"
+"聪明","clever,smart,intelligent","cōng ming [adj.]","HSK 3 English"
+"从","from,through","cóng [prep.]","HSK 3 English"
+"错","wrong,incorrect,mistake","cuò [adj./n.]","HSK 3 English"
+"打电话","call,make a phone call","dǎ diàn huà [v.]","HSK 3 English"
+"打篮球","play basketball","dǎ lán qiú [v.]","HSK 3 English"
+"打扫","clean,sweep","dǎ sǎo [v.]","HSK 3 English"
+"打算","plan,intend","dǎ suàn [v./n.]","HSK 3 English"
+"大","big,large","dà [adj.]","HSK 3 English"
+"大家","everyone,all","dà jiā [pron.]","HSK 3 English"
+"带","bring,take,carry","dài [v.]","HSK 3 English"
+"担心","worry,be anxious","dān xīn [v.]","HSK 3 English"
+"蛋糕","cake","dàn gāo [n.]","HSK 3 English"
+"但是","but,however","dàn shì [conj.]","HSK 3 English"
+"当然","of course,certainly","dāng rán [adv.]","HSK 3 English"
+"到","arrive,reach,go to","dào [v./prep.]","HSK 3 English"
+"地","adverbial particle","de [part.]","HSK 3 English"
+"的","possessive particle","de [part.]","HSK 3 English"
+"得","degree particle,verb complement marker","de [part.]","HSK 3 English"
+"灯","lamp,light","dēng [n.]","HSK 3 English"
+"等","wait,so on,etc.","děng [v./part.]","HSK 3 English"
+"低","low","dī [adj.]","HSK 3 English"
+"弟弟","younger brother","dì di [n.]","HSK 3 English"
+"地方","place,area","dì fang [n.]","HSK 3 English"
+"地铁","subway,metro","dì tiě [n.]","HSK 3 English"
+"地图","map","dì tú [n.]","HSK 3 English"
+"第一","first","dì yī [num.]","HSK 3 English"
+"点","point,dot,o'clock","diǎn [n./v.]","HSK 3 English"
+"电脑","computer","diàn nǎo [n.]","HSK 3 English"
+"电视","television,TV","diàn shì [n.]","HSK 3 English"
+"电梯","elevator,escalator","diàn tī [n.]","HSK 3 English"
+"电影","movie,film","diàn yǐng [n.]","HSK 3 English"
+"电子邮件","email","diàn zǐ yóu jiàn [n.]","HSK 3 English"
+"东","east","dōng [n.]","HSK 3 English"
+"东西","thing,object","dōng xi [n.]","HSK 3 English"
+"冬","winter","dōng [n.]","HSK 3 English"
+"懂","understand,know","dǒng [v.]","HSK 3 English"
+"动物","animal","dòng wù [n.]","HSK 3 English"
+"都","all,both","dōu [adv.]","HSK 3 English"
+"读","read","dú [v.]","HSK 3 English"
+"短","short","duǎn [adj.]","HSK 3 English"
+"段","paragraph,section,segment","duàn [n./m.]","HSK 3 English"
+"锻炼","exercise,work out","duàn liàn [v./n.]","HSK 3 English"
+"对","correct,right,towards","duì [adj./prep.]","HSK 3 English"
+"对不起","sorry","duì bu qǐ [phrase]","HSK 3 English"
+"多","many,much,more","duō [adj./adv.]","HSK 3 English"
+"多么","how,what (exclamatory)","duō me [adv.]","HSK 3 English"
+"多少","how many,how much","duō shǎo [pron.]","HSK 3 English"
+"饿","hungry","è [adj.]","HSK 3 English"
+"而且","moreover,furthermore","ér qiě [conj.]","HSK 3 English"
+"儿子","son","ér zi [n.]","HSK 3 English"
+"耳朵","ear","ěr duo [n.]","HSK 3 English"
+"二","two","èr [num.]","HSK 3 English"
+"发烧","have a fever","fā shāo [v.]","HSK 3 English"
+"发现","discover,find","fā xiàn [v.]","HSK 3 English"
+"饭馆","restaurant","fàn guǎn [n.]","HSK 3 English"
+"方便","convenient","fāng biàn [adj.]","HSK 3 English"
+"房间","room","fáng jiān [n.]","HSK 3 English"
+"放","put,place","fàng [v.]","HSK 3 English"
+"放心","relax,don't worry","fàng xīn [v.]","HSK 3 English"
+"非常","very,extremely","fēi cháng [adv.]","HSK 3 English"
+"飞机","airplane,plane","fēi jī [n.]","HSK 3 English"
+"分","minute,point,divide","fēn [n./v.]","HSK 3 English"
+"分钟","minute","fēn zhōng [n.]","HSK 3 English"
+"服务员","waiter,waitress,attendant","fú wù yuán [n.]","HSK 3 English"
+"附近","nearby","fù jìn [n./adj.]","HSK 3 English"
+"复习","review","fù xí [v.]","HSK 3 English"
+"干净","clean","gān jìng [adj.]","HSK 3 English"
+"敢","dare","gǎn [v.]","HSK 3 English"
+"感冒","cold (illness)","gǎn mào [n./v.]","HSK 3 English"
+"刚才","just now","gāng cái [n.]","HSK 3 English"
+"高","high,tall","gāo [adj.]","HSK 3 English"
+"高兴","happy,glad","gāo xìng [adj.]","HSK 3 English"
+"告诉","tell","gào su [v.]","HSK 3 English"
+"哥哥","older brother","gē ge [n.]","HSK 3 English"
+"个","measure word for general objects","gè [m.]","HSK 3 English"
+"给","give,to,for","gěi [v./prep.]","HSK 3 English"
+"跟","with,and,follow","gēn [prep./conj./v.]","HSK 3 English"
+"根据","according to,based on","gēn jù [prep.]","HSK 3 English"
+"更","more,further","gèng [adv.]","HSK 3 English"
+"公共汽车","bus","gōng gòng qì chē [n.]","HSK 3 English"
+"公斤","kilogram","gōng jīn [n.]","HSK 3 English"
+"公司","company,corporation","gōng sī [n.]","HSK 3 English"
+"公园","park","gōng yuán [n.]","HSK 3 English"
+"工作","work,job","gōng zuò [n./v.]","HSK 3 English"
+"狗","dog","gǒu [n.]","HSK 3 English"
+"故事","story","gù shi [n.]","HSK 3 English"
+"刮风","windy,blow","guā fēng [v.]","HSK 3 English"
+"关","close,shut,turn off","guān [v.]","HSK 3 English"
+"关系","relation,relationship","guān xi [n.]","HSK 3 English"
+"关心","care,concern","guān xīn [v.]","HSK 3 English"
+"关于","about,regarding","guān yú [prep.]","HSK 3 English"
+"贵","expensive","guì [adj.]","HSK 3 English"
+"国家","country,nation","guó jiā [n.]","HSK 3 English"
+"果汁","juice","guǒ zhī [n.]","HSK 3 English"
+"过去","past,pass by","guò qu [n./v.]","HSK 3 English"
+"过","past experience marker,pass","guò [part./v.]","HSK 3 English"
+"还","still,yet,also","hái [adv.]","HSK 3 English"
+"还是","or,still,nevertheless","hái shi [conj./adv.]","HSK 3 English"
+"孩子","child","hái zi [n.]","HSK 3 English"
+"害怕","afraid,scared","hài pà [adj./v.]","HSK 3 English"
+"汉语","Chinese language","Hàn yǔ [n.]","HSK 3 English"
+"好","good,well","hǎo [adj./adv.]","HSK 3 English"
+"好吃","delicious","hǎo chī [adj.]","HSK 3 English"
+"号","number,day of month","hào [n.]","HSK 3 English"
+"喝","drink","hē [v.]","HSK 3 English"
+"和","and","hé [conj.]","HSK 3 English"
+"河","river","hé [n.]","HSK 3 English"
+"黑","black","hēi [adj.]","HSK 3 English"
+"黑板","blackboard","hēi bǎn [n.]","HSK 3 English"
+"很","very","hěn [adv.]","HSK 3 English"
+"红","red","hóng [adj.]","HSK 3 English"
+"后面","behind,back","hòu miàn [n.]","HSK 3 English"
+"护照","passport","hù zhào [n.]","HSK 3 English"
+"花","flower,spend","huā [n./v.]","HSK 3 English"
+"花园","garden","huā yuán [n.]","HSK 3 English"
+"画","paint,draw,picture","huà [v./n.]","HSK 3 English"
+"坏","bad,broken","huài [adj.]","HSK 3 English"
+"欢迎","welcome","huān yíng [v.]","HSK 3 English"
+"还","return","huán [v.]","HSK 3 English"
+"环境","environment","huán jìng [n.]","HSK 3 English"
+"换","change,exchange","huàn [v.]","HSK 3 English"
+"黄","yellow","huáng [adj.]","HSK 3 English"
+"回","return,go back","huí [v.]","HSK 3 English"
+"回答","answer,reply","huí dá [v.]","HSK 3 English"
+"会","can,know how to,meeting","huì [v./n.]","HSK 3 English"
+"会议","meeting,conference","huì yì [n.]","HSK 3 English"
+"火车站","train station","huǒ chē zhàn [n.]","HSK 3 English"
+"或者","or","huò zhě [conj.]","HSK 3 English"
+"机场","airport","jī chǎng [n.]","HSK 3 English"
+"鸡蛋","egg","jī dàn [n.]","HSK 3 English"
+"几乎","almost,nearly","jī hū [adv.]","HSK 3 English"
+"机会","opportunity,chance","jī huì [n.]","HSK 3 English"
+"极","extremely,very","jí [adv.]","HSK 3 English"
+"几","several,how many","jǐ [pron.]","HSK 3 English"
+"记得","remember","jì de [v.]","HSK 3 English"
+"季节","season","jì jié [n.]","HSK 3 English"
+"家","home,family","jiā [n.]","HSK 3 English"
+"检查","inspect,examine,check","jiǎn chá [v.]","HSK 3 English"
+"简单","simple","jiǎn dān [adj.]","HSK 3 English"
+"件","measure word for clothes,items","jiàn [m.]","HSK 3 English"
+"健康","healthy","jiàn kāng [adj.]","HSK 3 English"
+"见面","meet,see each other","jiàn miàn [v.]","HSK 3 English"
+"讲","speak,tell","jiǎng [v.]","HSK 3 English"
+"教","teach","jiāo [v.]","HSK 3 English"
+"角","corner,angle,10 cents","jiǎo [n.]","HSK 3 English"
+"脚","foot","jiǎo [n.]","HSK 3 English"
+"叫","call,name","jiào [v.]","HSK 3 English"
+"教室","classroom","jiào shì [n.]","HSK 3 English"
+"接","receive,meet,connect","jiē [v.]","HSK 3 English"
+"街道","street","jiē dào [n.]","HSK 3 English"
+"结婚","marry,get married","jié hūn [v.]","HSK 3 English"
+"结束","end,finish","jié shù [v.]","HSK 3 English"
+"节目","program,show","jié mù [n.]","HSK 3 English"
+"节日","festival","jié rì [n.]","HSK 3 English"
+"姐姐","older sister","jiě jie [n.]","HSK 3 English"
+"解决","solve,resolve","jiě jué [v.]","HSK 3 English"
+"借","borrow,lend","jiè [v.]","HSK 3 English"
+"介绍","introduce","jiè shào [v.]","HSK 3 English"
+"今天","today","jīn tiān [n.]","HSK 3 English"
+"进","enter","jìn [v.]","HSK 3 English"
+"近","near,close","jìn [adj.]","HSK 3 English"
+"经常","often,frequently","jīng cháng [adv.]","HSK 3 English"
+"经过","pass,go through","jīng guò [v./prep.]","HSK 3 English"
+"经理","manager","jīng lǐ [n.]","HSK 3 English"
+"九","nine","jiǔ [num.]","HSK 3 English"
+"久","long time","jiǔ [adj.]","HSK 3 English"
+"旧","old,used","jiù [adj.]","HSK 3 English"
+"就","then,just,right away","jiù [adv.]","HSK 3 English"
+"举行","hold (meeting,ceremony)","jǔ xíng [v.]","HSK 3 English"
+"句子","sentence","jù zi [n.]","HSK 3 English"
+"觉得","feel,think","jué de [v.]","HSK 3 English"
+"决定","decide,determine","jué dìng [v./n.]","HSK 3 English"
+"咖啡","coffee","kā fēi [n.]","HSK 3 English"
+"开","open,start,drive","kāi [v.]","HSK 3 English"
+"开始","start,begin","kāi shǐ [v.]","HSK 3 English"
+"看","see,look,watch","kàn [v.]","HSK 3 English"
+"看见","see","kàn jiàn [v.]","HSK 3 English"
+"考试","exam,test","kǎo shì [n./v.]","HSK 3 English"
+"渴","thirsty","kě [adj.]","HSK 3 English"
+"可爱","cute,lovely","kě ài [adj.]","HSK 3 English"
+"可能","possible,maybe","kě néng [adj./adv.]","HSK 3 English"
+"可以","can,may","kě yǐ [v.]","HSK 3 English"
+"刻","moment,quarter (of time)","kè [n.]","HSK 3 English"
+"课","lesson,class","kè [n.]","HSK 3 English"
+"客人","guest,customer","kè rén [n.]","HSK 3 English"
+"空调","air conditioner","kōng tiáo [n.]","HSK 3 English"
+"口","mouth","kǒu [n.]","HSK 3 English"
+"哭","cry,weep","kū [v.]","HSK 3 English"
+"裤子","pants,trousers","kù zi [n.]","HSK 3 English"
+"块","piece,chunk,measure word","kuài [m./n.]","HSK 3 English"
+"快","fast,quick","kuài [adj.]","HSK 3 English"
+"快乐","happy,joyful","kuài lè [adj.]","HSK 3 English"
+"筷子","chopsticks","kuài zi [n.]","HSK 3 English"
+"来","come","lái [v.]","HSK 3 English"
+"蓝","blue","lán [adj.]","HSK 3 English"
+"老","old","lǎo [adj.]","HSK 3 English"
+"老师","teacher","lǎo shī [n.]","HSK 3 English"
+"了","past tense particle","le [part.]","HSK 3 English"
+"累","tired","lèi [adj.]","HSK 3 English"
+"冷","cold","lěng [adj.]","HSK 3 English"
+"离","leave,from,away","lí [v./prep.]","HSK 3 English"
+"离开","leave,depart","lí kāi [v.]","HSK 3 English"
+"里","inside,inner","lǐ [n.]","HSK 3 English"
+"礼物","gift,present","lǐ wù [n.]","HSK 3 English"
+"历史","history","lì shǐ [n.]","HSK 3 English"
+"脸","face","liǎn [n.]","HSK 3 English"
+"练习","practice,exercise","liàn xí [v./n.]","HSK 3 English"
+"两","two","liǎng [num.]","HSK 3 English"
+"辆","measure word for vehicles","liàng [m.]","HSK 3 English"
+"了解","understand,comprehend","liǎo jiě [v.]","HSK 3 English"
+"邻居","neighbor","lín jū [n.]","HSK 3 English"
+"零","zero","líng [num.]","HSK 3 English"
+"六","six","liù [num.]","HSK 3 English"
+"楼","building,floor","lóu [n.]","HSK 3 English"
+"路","road,path,way","lù [n.]","HSK 3 English"
+"旅游","travel","lǚ yóu [v./n.]","HSK 3 English"
+"绿","green","lǜ [adj.]","HSK 3 English"
+"妈妈","mom,mother","mā ma [n.]","HSK 3 English"
+"马","horse","mǎ [n.]","HSK 3 English"
+"马上","immediately,right away","mǎ shàng [adv.]","HSK 3 English"
+"吗","question particle","ma [part.]","HSK 3 English"
+"买","buy","mǎi [v.]","HSK 3 English"
+"卖","sell","mài [v.]","HSK 3 English"
+"满意","satisfied,pleased","mǎn yì [adj./v.]","HSK 3 English"
+"慢","slow","màn [adj.]","HSK 3 English"
+"忙","busy","máng [adj.]","HSK 3 English"
+"猫","cat","māo [n.]","HSK 3 English"
+"帽子","hat,cap","mào zi [n.]","HSK 3 English"
+"没","not,no","méi [adv.]","HSK 3 English"
+"没关系","never mind,no problem","méi guān xi [phrase]","HSK 3 English"
+"每","every","měi [pron.]","HSK 3 English"
+"妹妹","younger sister","mèi mei [n.]","HSK 3 English"
+"门","door","mén [n.]","HSK 3 English"
+"米","rice,meter","mǐ [n.]","HSK 3 English"
+"米饭","cooked rice","mǐ fàn [n.]","HSK 3 English"
+"面包","bread","miàn bāo [n.]","HSK 3 English"
+"面条","noodles","miàn tiáo [n.]","HSK 3 English"
+"明白","understand,clear","míng bai [adj./v.]","HSK 3 English"
+"明天","tomorrow","míng tiān [n.]","HSK 3 English"
+"名字","name","míng zi [n.]","HSK 3 English"
+"拿","take,hold","ná [v.]","HSK 3 English"
+"哪","which","nǎ [pron.]","HSK 3 English"
+"那","that","nà [pron.]","HSK 3 English"
+"奶奶","grandma","nǎi nai [n.]","HSK 3 English"
+"南","south","nán [n.]","HSK 3 English"
+"男人","man","nán rén [n.]","HSK 3 English"
+"难","difficult,hard","nán [adj.]","HSK 3 English"
+"难过","sad","nán guò [adj.]","HSK 3 English"
+"呢","question particle","ne [part.]","HSK 3 English"
+"能","can,be able to","néng [v.]","HSK 3 English"
+"你","you","nǐ [pron.]","HSK 3 English"
+"年","year","nián [n.]","HSK 3 English"
+"年级","grade,year in school","nián jí [n.]","HSK 3 English"
+"年轻","young","nián qīng [adj.]","HSK 3 English"
+"鸟","bird","niǎo [n.]","HSK 3 English"
+"您","you (polite)","nín [pron.]","HSK 3 English"
+"牛奶","milk","niú nǎi [n.]","HSK 3 English"
+"努力","strive,work hard","nǔ lì [adj./v.]","HSK 3 English"
+"女儿","daughter","nǚ ér [n.]","HSK 3 English"
+"女人","woman","nǚ rén [n.]","HSK 3 English"
+"爬山","climb mountain","pá shān [v.]","HSK 3 English"
+"盘子","plate,dish","pán zi [n.]","HSK 3 English"
+"旁边","side,nearby","páng biān [n.]","HSK 3 English"
+"胖","fat","pàng [adj.]","HSK 3 English"
+"跑步","run,jog","pǎo bù [v.]","HSK 3 English"
+"朋友","friend","péng you [n.]","HSK 3 English"
+"啤酒","beer","pí jiǔ [n.]","HSK 3 English"
+"便宜","cheap,inexpensive","pián yi [adj.]","HSK 3 English"
+"票","ticket","piào [n.]","HSK 3 English"
+"漂亮","beautiful","piào liang [adj.]","HSK 3 English"
+"苹果","apple","píng guǒ [n.]","HSK 3 English"
+"葡萄","grape","pú tao [n.]","HSK 3 English"
+"普通话","Mandarin","pǔ tōng huà [n.]","HSK 3 English"
+"七","seven","qī [num.]","HSK 3 English"
+"妻子","wife","qī zi [n.]","HSK 3 English"
+"其实","actually","qí shí [adv.]","HSK 3 English"
+"其他","other","qí tā [pron.]","HSK 3 English"
+"骑","ride","qí [v.]","HSK 3 English"
+"奇怪","strange,weird","qí guài [adj.]","HSK 3 English"
+"起床","get up","qǐ chuáng [v.]","HSK 3 English"
+"千","thousand","qiān [num.]","HSK 3 English"
+"铅笔","pencil","qiān bǐ [n.]","HSK 3 English"
+"钱","money","qián [n.]","HSK 3 English"
+"前面","front,ahead","qián miàn [n.]","HSK 3 English"
+"清楚","clear","qīng chu [adj.]","HSK 3 English"
+"晴","sunny","qíng [adj.]","HSK 3 English"
+"请","please","qǐng [v./adv.]","HSK 3 English"
+"秋","autumn","qiū [n.]","HSK 3 English"
+"去","go","qù [v.]","HSK 3 English"
+"去年","last year","qù nián [n.]","HSK 3 English"
+"裙子","skirt","qún zi [n.]","HSK 3 English"
+"然后","then,after","rán hòu [conj.]","HSK 3 English"
+"让","let,allow,make","ràng [v.]","HSK 3 English"
+"热","hot","rè [adj.]","HSK 3 English"
+"热情","enthusiasm,passion","rè qíng [n./adj.]","HSK 3 English"
+"人","person,people","rén [n.]","HSK 3 English"
+"认识","know,recognize","rèn shi [v.]","HSK 3 English"
+"认为","think,believe","rèn wéi [v.]","HSK 3 English"
+"认真","serious,earnest","rèn zhēn [adj.]","HSK 3 English"
+"日","day,sun","rì [n.]","HSK 3 English"
+"容易","easy","róng yì [adj.]","HSK 3 English"
+"如果","if","rú guǒ [conj.]","HSK 3 English"
+"三","three","sān [num.]","HSK 3 English"
+"伞","umbrella","sǎn [n.]","HSK 3 English"
+"商店","shop,store","shāng diàn [n.]","HSK 3 English"
+"上","above,up,on","shàng [n./v./prep.]","HSK 3 English"
+"上班","go to work","shàng bān [v.]","HSK 3 English"
+"上网","surf the internet","shàng wǎng [v.]","HSK 3 English"
+"上午","morning","shàng wǔ [n.]","HSK 3 English"
+"少","few,little","shǎo [adj.]","HSK 3 English"
+"谁","who","shéi [pron.]","HSK 3 English"
+"身体","body,health","shēn tǐ [n.]","HSK 3 English"
+"什么","what","shén me [pron.]","HSK 3 English"
+"生病","get sick,fall ill","shēng bìng [v.]","HSK 3 English"
+"生气","get angry","shēng qì [v.]","HSK 3 English"
+"生日","birthday","shēng rì [n.]","HSK 3 English"
+"声音","voice,sound","shēng yīn [n.]","HSK 3 English"
+"十","ten","shí [num.]","HSK 3 English"
+"时候","time,moment","shí hou [n.]","HSK 3 English"
+"时间","time","shí jiān [n.]","HSK 3 English"
+"使","make,use","shǐ [v.]","HSK 3 English"
+"是","be,yes","shì [v.]","HSK 3 English"
+"世界","world","shì jiè [n.]","HSK 3 English"
+"事情","thing,matter,affair","shì qing [n.]","HSK 3 English"
+"手表","watch","shǒu biǎo [n.]","HSK 3 English"
+"手机","mobile phone","shǒu jī [n.]","HSK 3 English"
+"瘦","thin","shòu [adj.]","HSK 3 English"
+"书","book","shū [n.]","HSK 3 English"
+"舒服","comfortable","shū fu [adj.]","HSK 3 English"
+"叔叔","uncle","shū shu [n.]","HSK 3 English"
+"树","tree","shù [n.]","HSK 3 English"
+"数学","mathematics","shù xué [n.]","HSK 3 English"
+"刷牙","brush teeth","shuā yá [v.]","HSK 3 English"
+"双","double,pair","shuāng [m./adj.]","HSK 3 English"
+"水","water","shuǐ [n.]","HSK 3 English"
+"水果","fruit","shuǐ guǒ [n.]","HSK 3 English"
+"水平","level,standard","shuǐ píng [n.]","HSK 3 English"
+"睡觉","sleep","shuì jiào [v.]","HSK 3 English"
+"说话","speak,talk","shuō huà [v.]","HSK 3 English"
+"司机","driver","sī jī [n.]","HSK 3 English"
+"四","four","sì [num.]","HSK 3 English"
+"送","send,give,deliver","sòng [v.]","HSK 3 English"
+"虽然","although","suī rán [conj.]","HSK 3 English"
+"岁","year old","suì [n.]","HSK 3 English"
+"所以","therefore","suǒ yǐ [conj.]","HSK 3 English"
+"他","he","tā [pron.]","HSK 3 English"
+"她","she","tā [pron.]","HSK 3 English"
+"它","it","tā [pron.]","HSK 3 English"
+"太","too,very","tài [adv.]","HSK 3 English"
+"太阳","sun","tài yáng [n.]","HSK 3 English"
+"糖","sugar,candy","táng [n.]","HSK 3 English"
+"特别","special,especially","tè bié [adj./adv.]","HSK 3 English"
+"疼","hurt,pain","téng [v./adj.]","HSK 3 English"
+"踢足球","play soccer","tī zú qiú [v.]","HSK 3 English"
+"题","question,problem,topic","tí [n.]","HSK 3 English"
+"提高","improve,raise","tí gāo [v.]","HSK 3 English"
+"体育","sports,physical education","tǐ yù [n.]","HSK 3 English"
+"天气","weather","tiān qì [n.]","HSK 3 English"
+"甜","sweet","tián [adj.]","HSK 3 English"
+"条","measure word for long objects","tiáo [m.]","HSK 3 English"
+"跳舞","dance","tiào wǔ [v.]","HSK 3 English"
+"听","listen,hear","tīng [v.]","HSK 3 English"
+"同事","colleague","tóng shì [n.]","HSK 3 English"
+"同学","classmate","tóng xué [n.]","HSK 3 English"
+"同意","agree","tóng yì [v.]","HSK 3 English"
+"头发","hair","tóu fa [n.]","HSK 3 English"
+"突然","suddenly","tū rán [adv.]","HSK 3 English"
+"图书馆","library","tú shū guǎn [n.]","HSK 3 English"
+"腿","leg","tuǐ [n.]","HSK 3 English"
+"外","outside,foreign","wài [n.]","HSK 3 English"
+"完","finish,complete","wán [v.]","HSK 3 English"
+"完成","complete,accomplish","wán chéng [v.]","HSK 3 English"
+"玩","play,have fun","wán [v.]","HSK 3 English"
+"碗","bowl","wǎn [n.]","HSK 3 English"
+"晚上","evening,night","wǎn shang [n.]","HSK 3 English"
+"万","ten thousand","wàn [num.]","HSK 3 English"
+"忘记","forget","wàng jì [v.]","HSK 3 English"
+"喂","hello (on phone)","wèi [interj.]","HSK 3 English"
+"为","for,for the sake of","wèi [prep.]","HSK 3 English"
+"为了","in order to","wèi le [prep.]","HSK 3 English"
+"为什么","why","wèi shén me [pron.]","HSK 3 English"
+"位","measure word for people","wèi [m.]","HSK 3 English"
+"文化","culture","wén huà [n.]","HSK 3 English"
+"问","ask","wèn [v.]","HSK 3 English"
+"问题","question,problem","wèn tí [n.]","HSK 3 English"
+"我","I,me","wǒ [pron.]","HSK 3 English"
+"我们","we,us","wǒ men [pron.]","HSK 3 English"
+"五","five","wǔ [num.]","HSK 3 English"
+"西","west","xī [n.]","HSK 3 English"
+"西瓜","watermelon","xī guā [n.]","HSK 3 English"
+"希望","hope","xī wàng [v./n.]","HSK 3 English"
+"习惯","habit,accustomed","xí guàn [n./v.]","HSK 3 English"
+"洗","wash","xǐ [v.]","HSK 3 English"
+"洗手间","restroom,bathroom","xǐ shǒu jiān [n.]","HSK 3 English"
+"洗澡","take a shower","xǐ zǎo [v.]","HSK 3 English"
+"喜欢","like,enjoy","xǐ huan [v.]","HSK 3 English"
+"下","down,below,under","xià [n./v./prep.]","HSK 3 English"
+"下午","afternoon","xià wǔ [n.]","HSK 3 English"
+"下雨","rain","xià yǔ [v.]","HSK 3 English"
+"夏","summer","xià [n.]","HSK 3 English"
+"先","first,before","xiān [adv.]","HSK 3 English"
+"先生","Mr.,sir,husband","xiān sheng [n.]","HSK 3 English"
+"现在","now","xiàn zài [n.]","HSK 3 English"
+"香蕉","banana","xiāng jiāo [n.]","HSK 3 English"
+"相同","same,identical","xiāng tóng [adj.]","HSK 3 English"
+"相信","believe","xiāng xìn [v.]","HSK 3 English"
+"想","think,want,miss","xiǎng [v.]","HSK 3 English"
+"向","towards","xiàng [prep.]","HSK 3 English"
+"像","like,resemble","xiàng [v./prep.]","HSK 3 English"
+"小","small,little","xiǎo [adj.]","HSK 3 English"
+"小姐","miss,young lady","xiǎo jie [n.]","HSK 3 English"
+"小时","hour","xiǎo shí [n.]","HSK 3 English"
+"小心","careful,be careful","xiǎo xīn [adj./v.]","HSK 3 English"
+"笑","laugh,smile","xiào [v.]","HSK 3 English"
+"校长","principal,headmaster","xiào zhǎng [n.]","HSK 3 English"
+"些","some,a few","xiē [m.]","HSK 3 English"
+"鞋","shoe","xié [n.]","HSK 3 English"
+"写","write","xiě [v.]","HSK 3 English"
+"谢谢","thank you","xiè xie [v./interj.]","HSK 3 English"
+"新","new","xīn [adj.]","HSK 3 English"
+"新闻","news","xīn wén [n.]","HSK 3 English"
+"新鲜","fresh","xīn xiān [adj.]","HSK 3 English"
+"信","letter,trust","xìn [n.]","HSK 3 English"
+"星期","week","xīng qī [n.]","HSK 3 English"
+"行李箱","suitcase,trunk","xíng lǐ xiāng [n.]","HSK 3 English"
+"姓","surname,family name","xìng [n./v.]","HSK 3 English"
+"兴趣","interest,hobby","xìng qù [n.]","HSK 3 English"
+"熊猫","panda","xióng māo [n.]","HSK 3 English"
+"休息","rest","xiū xi [v.]","HSK 3 English"
+"需要","need,require","xū yào [v./n.]","HSK 3 English"
+"选择","choose,select","xuǎn zé [v.]","HSK 3 English"
+"学生","student","xué sheng [n.]","HSK 3 English"
+"学习","study,learn","xué xí [v.]","HSK 3 English"
+"学校","school","xué xiào [n.]","HSK 3 English"
+"雪","snow","xuě [n.]","HSK 3 English"
+"颜色","color","yán sè [n.]","HSK 3 English"
+"眼镜","glasses","yǎn jìng [n.]","HSK 3 English"
+"眼睛","eye","yǎn jing [n.]","HSK 3 English"
+"羊肉","mutton,lamb","yáng ròu [n.]","HSK 3 English"
+"要求","request,demand","yāo qiú [v./n.]","HSK 3 English"
+"药","medicine,drug","yào [n.]","HSK 3 English"
+"要","want,need","yào [v.]","HSK 3 English"
+"爷爷","grandpa","yé ye [n.]","HSK 3 English"
+"也","also,too","yě [adv.]","HSK 3 English"
+"一","one","yī [num.]","HSK 3 English"
+"衣服","clothes","yī fu [n.]","HSK 3 English"
+"医生","doctor","yī shēng [n.]","HSK 3 English"
+"医院","hospital","yī yuàn [n.]","HSK 3 English"
+"一定","certainly,surely","yī dìng [adv./adj.]","HSK 3 English"
+"一共","altogether,total","yī gòng [adv.]","HSK 3 English"
+"一会儿","a while,moment","yī huìr [n.]","HSK 3 English"
+"一样","same,alike","yī yàng [adj.]","HSK 3 English"
+"以后","later,after","yǐ hòu [n.]","HSK 3 English"
+"以前","before","yǐ qián [n.]","HSK 3 English"
+"以为","think,mistakenly believe","yǐ wéi [v.]","HSK 3 English"
+"已经","already","yǐ jīng [adv.]","HSK 3 English"
+"椅子","chair","yǐ zi [n.]","HSK 3 English"
+"一般","general,ordinary","yī bān [adj.]","HSK 3 English"
+"一边","one side","yī biān [n.]","HSK 3 English"
+"一起","together","yī qǐ [adv.]","HSK 3 English"
+"一直","always,continuously","yī zhí [adv.]","HSK 3 English"
+"意思","meaning","yì si [n.]","HSK 3 English"
+"阴","overcast","yīn [adj.]","HSK 3 English"
+"因为","because","yīn wèi [conj.]","HSK 3 English"
+"音乐","music","yīn yuè [n.]","HSK 3 English"
+"银行","bank","yín háng [n.]","HSK 3 English"
+"应该","should,ought to","yīng gāi [v.]","HSK 3 English"
+"影响","influence,affect","yǐng xiǎng [v./n.]","HSK 3 English"
+"用","use","yòng [v.]","HSK 3 English"
+"游戏","game,play","yóu xì [n.]","HSK 3 English"
+"游泳","swim","yóu yǒng [v.]","HSK 3 English"
+"有","have,there be","yǒu [v.]","HSK 3 English"
+"有名","famous","yǒu míng [adj.]","HSK 3 English"
+"又","again,also","yòu [adv.]","HSK 3 English"
+"右边","right side","yòu bian [n.]","HSK 3 English"
+"鱼","fish","yú [n.]","HSK 3 English"
+"遇到","encounter,meet","yù dào [v.]","HSK 3 English"
+"元","yuan (currency)","yuán [n.]","HSK 3 English"
+"远","far","yuǎn [adj.]","HSK 3 English"
+"愿意","willing","yuàn yì [v.]","HSK 3 English"
+"月","month,moon","yuè [n.]","HSK 3 English"
+"月亮","moon","yuè liang [n.]","HSK 3 English"
+"越","more","yuè [adv.]","HSK 3 English"
+"云","cloud","yún [n.]","HSK 3 English"
+"运动","sports,exercise","yùn dòng [n.]","HSK 3 English"
+"在","at,in,on","zài [prep./v.]","HSK 3 English"
+"再","again","zài [adv.]","HSK 3 English"
+"再见","goodbye","zài jiàn [interj.]","HSK 3 English"
+"早上","morning","zǎo shang [n.]","HSK 3 English"
+"怎么","how","zěn me [pron.]","HSK 3 English"
+"怎么样","how about,how is it","zěn me yàng [pron.]","HSK 3 English"
+"站","station,stop,stand","zhàn [n./v.]","HSK 3 English"
+"张","measure word for flat objects","zhāng [m.]","HSK 3 English"
+"长","long","zhǎng [adj.]","HSK 3 English"
+"丈夫","husband","zhàng fu [n.]","HSK 3 English"
+"着急","worry,anxious","zháo jí [adj./v.]","HSK 3 English"
+"找","look for,find","zhǎo [v.]","HSK 3 English"
+"照顾","look after,care for","zhào gù [v.]","HSK 3 English"
+"照片","photo,picture","zhào piàn [n.]","HSK 3 English"
+"照相机","camera","zhào xiàng jī [n.]","HSK 3 English"
+"这","this","zhè [pron.]","HSK 3 English"
+"着","action particle","zhe [part.]","HSK 3 English"
+"真","real,true","zhēn [adj./adv.]","HSK 3 English"
+"正在","in progress","zhèng zài [adv.]","HSK 3 English"
+"知道","know","zhī dào [v.]","HSK 3 English"
+"只","only,just","zhǐ [adv.]","HSK 3 English"
+"中国","China","Zhōng guó [n.]","HSK 3 English"
+"中间","middle","zhōng jiān [n.]","HSK 3 English"
+"中午","noon","zhōng wǔ [n.]","HSK 3 English"
+"终于","finally","zhōng yú [adv.]","HSK 3 English"
+"种","kind,type","zhǒng [m./n.]","HSK 3 English"
+"重要","important","zhòng yào [adj.]","HSK 3 English"
+"周末","weekend","zhōu mò [n.]","HSK 3 English"
+"主要","main,principal","zhǔ yào [adj.]","HSK 3 English"
+"住","live,reside","zhù [v.]","HSK 3 English"
+"祝","wish","zhù [v.]","HSK 3 English"
+"注意","pay attention","zhù yì [v.]","HSK 3 English"
+"准备","prepare,get ready","zhǔn bèi [v.]","HSK 3 English"
+"桌子","table,desk","zhuō zi [n.]","HSK 3 English"
+"字","character,word","zì [n.]","HSK 3 English"
+"字典","dictionary","zì diǎn [n.]","HSK 3 English"
+"自己","self,oneself","zì jǐ [pron.]","HSK 3 English"
+"自行车","bicycle","zì xíng chē [n.]","HSK 3 English"
+"总是","always","zǒng shì [adv.]","HSK 3 English"
+"走","walk,go","zǒu [v.]","HSK 3 English"
+"最","most,very","zuì [adv.]","HSK 3 English"
+"最近","recently,lately","zuì jìn [n./adv.]","HSK 3 English"
+"昨天","yesterday","zuó tiān [n.]","HSK 3 English"
+"左边","left side","zuǒ bian [n.]","HSK 3 English"
+"坐","sit,ride","zuò [v.]","HSK 3 English"
+"做","do,make","zuò [v.]","HSK 3 English"
+"作业","homework","zuò yè [n.]","HSK 3 English"
+"作用","effect,function","zuò yòng [n.]","HSK 3 English"

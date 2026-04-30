@@ -6,7 +6,8 @@
     "lessons": {
       "lesson30": { "name": "Lesson 30", "file": "packs/HSK6/lesson30.json" },
       "lesson31": { "name": "Lesson 31", "file": "packs/HSK6/lesson31.json" },
-      "lesson32": { "name": "Lesson 32", "file": "packs/HSK6/lesson32.json" }
+      "lesson32": { "name": "Lesson 32", "file": "packs/HSK6/lesson32.json" },
+      "lesson0": { "name": "HSK 6 English Multiple Choice Questions", "file": "packs/HSK6/HSK 6 English Multiple Choice Questions.json" }
     }
   },
   "hsk4": {
@@ -23,7 +24,9 @@
     "nameZh": "HSK3",
     "lessons": {
       "lesson1": { "name": "HSK 3", "file": "packs/HSK3/HSK3.json" },
-      "lesson2": { "name": "HSK 3 - Arabic", "file": "packs/HSK3/HSK3-Arabic.json" }
+      "lesson2": { "name": "HSK 3 English Multiple Choice Questions", "file": "packs/HSK3/HSK 3 English Multiple Choice Questions.json" },
+      "lesson3": { "name": "HSK 3 - Arabic", "file": "packs/HSK3/HSK3-Arabic.json" }
+      
 
     }
   }
