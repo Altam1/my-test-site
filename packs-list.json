@@ -23,10 +23,13 @@
     "nameEn": "HSK3",
     "nameZh": "HSK3",
     "lessons": {
-      "lesson1": { "name": "HSK 3", "file": "packs/HSK3/HSK3.json" },
-      "lesson2": { "name": "HSK 3 English Multiple Choice Questions", "file": "packs/HSK3/HSK 3 English Multiple Choice Questions.json" },
-      "lesson3": { "name": "HSK 3 - Arabic", "file": "packs/HSK3/HSK3-Arabic.json" }
-      
+      "lesson01": { "name": "HSK 3 English, words", "file": "packs/HSK3/HSK3 English words.json" },
+      "lesson02": { "name": "HSK 3 Arabic, words", "file": "packs/HSK3/HSK3 Arabic words.json" },
+      "lesson03": { "name": "HSK 3 Vietnamese, words", "file": "packs/HSK3/HSK3 Vietnamese words.json" },
+      "lesson1": { "name": "HSK 3 English, pinyin Multiple Choice Questions", "file": "packs/HSK3/HSK 3 English pinyin Multiple Choice Questions.json" },
+      "lesson2": { "name": "HSK 3 Arabic, pinyin Multiple Choice Questions", "file": "packs/HSK3/HSK 3 Arabic pinyin Multiple Choice Questions.json" },
+      "lesson3": { "name": "HSK 3 Vietnamese, pinyin Multiple Choice Questions", "file": "packs/HSK3/HSK 3 Vietnamese Multiple Choice Questions.json" }
+
 
     }
   }
