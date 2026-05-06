@@ -29,8 +29,15 @@
       "lesson1": { "name": "HSK 3 English, pinyin Multiple Choice Questions", "file": "packs/HSK3/HSK 3 English pinyin Multiple Choice Questions.json" },
       "lesson2": { "name": "HSK 3 Arabic, pinyin Multiple Choice Questions", "file": "packs/HSK3/HSK 3 Arabic pinyin Multiple Choice Questions.json" },
       "lesson3": { "name": "HSK 3 Vietnamese, pinyin Multiple Choice Questions", "file": "packs/HSK3/HSK 3 Vietnamese Multiple Choice Questions.json" }
-
-
+    }
+  },
+  "General": {
+    "name": "General words",
+    "nameEn": "General words",
+    "nameZh": "常用词",
+    "lessons": {
+      "lessonGeneral1": { "name": "peech Preparation", "file": "packs/General/Arabic - peech Preparation Choice Questions.json" },
+      "lessonGeneral2": { "name": "peech Preparation", "file": "packs/General/Arabic - peech Preparation words.json" }
     }
   }
 }
