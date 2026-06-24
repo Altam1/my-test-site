@@ -7,7 +7,9 @@
       "lesson30": { "name": "Lesson 30", "file": "packs/HSK6/lesson30.json" },
       "lesson31": { "name": "Lesson 31", "file": "packs/HSK6/lesson31.json" },
       "lesson32": { "name": "Lesson 32", "file": "packs/HSK6/lesson32.json" },
-      "lesson0": { "name": "HSK 6 English Multiple Choice Questions", "file": "packs/HSK6/HSK 6 English Multiple Choice Questions.json" }
+      "lesson0": { "name": "HSK 6 English Multiple Choice Questions", "file": "packs/HSK6/HSK 6 English Multiple Choice Questions.json" },
+      "lesson00":{"name" : "Characters_Pinyin",  "file":"packs/HSK6/Characters_Pinyin.json"},
+      "lesson000":{"name" : "Fill-in-the-blank",  "file":"packs/HSK6/Fill-in-the-blank.json"}
     }
   },
   "hsk4": {
